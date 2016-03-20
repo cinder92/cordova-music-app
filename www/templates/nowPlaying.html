@@ -1,0 +1,24 @@
+<ion-view>
+	<ion-content class="nowPlayingSong">
+		<div class="case">
+			<div class="overlay"></div>
+			<img class="cover" src="{{playing.song.Cover}}"/>
+					<div class="slotwrapper">
+				<div class="slot"></div>
+			</div>
+			<div class="vinyl"></div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<!--<h1>{{song.Author}}</h1>
+				<h2>{{song.Title}}</h2>-->
+				<h2 id="song-artist">{{playing.song.Author}}</h1>
+				<h3 id="song-title">{{playing.song.Title}}</h2>
+				<h1 id="song-duration">
+				<span ng-show="playing.totalDuration.h > 0">{{playing.totalDuration.h}}:</span>{{playing.totalDuration.m}}:{{playing.totalDuration.s}} / 
+				<span ng-show="playing.song.Duration.h > 0">{{playing.song.Duration.h}}:</span>{{playing.song.Duration.m}}:{{playing.song.Duration.s}}</h1>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>
