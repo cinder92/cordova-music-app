@@ -11,13 +11,30 @@
 
 		<div class="row">
 			<div class="col">
-				<!--<h1>{{song.Author}}</h1>
-				<h2>{{song.Title}}</h2>-->
 				<h2 id="song-artist">{{playing.song.Author}}</h1>
 				<h3 id="song-title">{{playing.song.Title}}</h2>
 				<h1 id="song-duration">
 				<span ng-show="playing.totalDuration.h > 0">{{playing.totalDuration.h}}:</span>{{playing.totalDuration.m}}:{{playing.totalDuration.s}} / 
 				<span ng-show="playing.song.Duration.h > 0">{{playing.song.Duration.h}}:</span>{{playing.song.Duration.m}}:{{playing.song.Duration.s}}</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col" ng-click="playing.prevSong(songPosition)">
+				<i class="icon ion-ios-rewind-outline control"></i>
+			</div>
+			<div class="col text-center">
+				<div class="outer">
+				 <svg width="65" height="65" xmlns="http://www.w3.org/2000/svg" class="nowPlayginSVG">
+				     <g>
+				      <circle id="circle" class="circle_animation" r="29" cy="30" cx="30" stroke-width="2" stroke="#fe7cd4" fill="none" style="display: inline-block;"></circle>
+				     </g>
+				    </svg>
+				</div>
+				<i class="icon ion-ios-pause-outline control action-box pause" ng-show="isPlaying" ng-click="playing.pauseSong()"></i>
+    			<i class="icon ion-ios-play-outline control action-box"  ng-hide="isPlaying" ng-click="playing.playSong()"></i>
+			</div>
+			<div class="col" ng-click="playing.nextSong(songPosition)">
+				<i class="icon ion-ios-fastforward-outline control"></i>
 			</div>
 		</div>
 	</ion-content>

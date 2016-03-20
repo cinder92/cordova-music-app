@@ -10109,6 +10109,19 @@ a.button {
     background: -ms-radial-gradient(center, ellipse cover, white 0%, white 50%, #4c4c4c 51%, rgba(76, 76, 76, 0) 52%, rgba(0, 0, 0, 0.1) 53%, transparent 58%);
     background: radial-gradient(center, ellipse cover, white 0%, white 50%, #4c4c4c 51%, rgba(76, 76, 76, 0) 52%, rgba(0, 0, 0, 0.1) 53%, transparent 58%); }
 
+.text-center {
+  text-align: center;
+  margin: 0 auto;
+  display: block; }
+
+.outer {
+  position: absolute;
+  width: 65px;
+  height: 65px;
+  margin: -3px 0px 0px 1px;
+  display: inline-flex;
+  stroke-dashoffset: 31px solid red; }
+
 .nowPlayingSong #song-artist {
   color: #fff;
   text-align: center;
@@ -10122,3 +10135,38 @@ a.button {
   text-transform: uppercase;
   margin: 0;
   font-size: 16px; }
+
+.nowPlayingSong .nowPlayginSVG {
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  margin: 1px 0px 0px 3px; }
+
+.nowPlayingSong .circle_animation {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  -webkit-transition: all 1s linear;
+  transition: all 1s linear; }
+
+.nowPlayingSong .control {
+  font-size: 60px;
+  color: #FE7ED5;
+  text-shadow: 1px 0px 13px #B12086;
+  -webkit-text-shadow: 1px 0px 13px #B12086;
+  text-align: center;
+  display: block; }
+
+.nowPlayingSong .action-box {
+  border-radius: 50%;
+  border: 1px solid #E3358C;
+  width: 65px;
+  height: 65px;
+  display: inline-block;
+  box-shadow: 0px 0px 7px #E3358C;
+  padding: 2px 0 0 7px;
+  z-index: 999;
+  position: relative; }
+  .nowPlayingSong .action-box.pause {
+    padding: 3px 0 0 0px;
+    font-size: 55px; }
