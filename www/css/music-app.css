@@ -10249,7 +10249,8 @@ a.button {
     /* Apply animation to this element */
     -moz-animation: scroll-left 7s linear infinite;
     -webkit-animation: scroll-left 7s linear infinite;
-    animation: scroll-left 7s linear infinite; }
+    animation: scroll-left 7s linear infinite;
+    white-space: nowrap; }
 
 /* Move it (define the animation) */
 @-moz-keyframes scroll-left {
