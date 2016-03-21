@@ -1,16 +1,20 @@
 <ion-view view-title="Songs">
   <ion-content>
+   	<div class="list" ng-show="showSearch">
+	  <div class="item item-input-inset">
+	    <label class="item-input-wrapper">
+	      <input type="text" placeholder="Search Songs" ng-model="songList.searchSong">
+	    </label>
+	  </div>
+	</div>
     <ion-list>
-		<!--<ion-item class="item item-thumbnail-left" ng-repeat="song in playlist.songList" ui-sref="app.nowplaying({id : song.Id})">
-		      <img src="{{song.Cover}}">
-		      <h2>{{song.Title}}</h2>
-		      <p>{{song.Album}}</p>
-		</ion-item>-->
-		<ion-item class="songFile" ng-repeat="song in songList.list" ui-sref="app.nowplaying({id : song.Id, position : {{$index}} } )">
+		<ion-item class="songFile" ng-repeat="song in songList.list | filter : songList.searchSong" ng-click="showPlayNow(song.Id,$index)">
 			<div class="single-case">
 				<div class="overlay"></div>
 				<img class="cover" src="{{song.Cover}}"/>
-				<div class="vinyl"></div>
+				<div class="vinyl">
+					<img src="img/vinyl.png" alt="">
+				</div>
 			</div>
 			<h2>{{song.Title}}</h2>
 			<p>{{song.Album}}</p>

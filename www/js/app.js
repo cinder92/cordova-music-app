@@ -52,15 +52,15 @@
       }
     })
 
-    .state('app.nowplaying', {
-      url: '/nowplaying/:id/:position',
+    /*.state('app.nowplaying', {
+      url: '/nowplaying/:id/:position/:play',
       views: {
         'menuContent': {
           templateUrl: 'templates/nowPlaying.html',
           controller: 'nowPlayingCtrl as playing'
         }
       }
-    })
+    })*/
 
 
     /*.state('app.search', {

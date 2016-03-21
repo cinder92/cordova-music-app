@@ -40,7 +40,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6e5ab2', end
 }
 
 //icons
-.ion-navicon,.back-button{
+.ion-navicon,.back-button,.ion-android-arrow-back,.ion-android-search{
 	color:#fff !important;
 }
 
@@ -200,29 +200,31 @@ to {
 	}
 
 	.vinyl {
-	position:absolute;
-	z-index:1;
-	bottom:4px;
-	left:5px;
-	display:block;
-	width:90px;
-	height:90px;
-	border-radius:200px;
-	background: -moz-linear-gradient(top,  rgba(45,45,45,1) 0%, rgba(0,0,0,1) 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(45,45,45,1)), color-stop(100%,rgba(0,0,0,1)));
-	background: -webkit-linear-gradient(top,  rgba(45,45,45,1) 0%,rgba(0,0,0,1) 100%);
-	background: -o-linear-gradient(top,  rgba(45,45,45,1) 0%,rgba(0,0,0,1) 100%);
-	background: -ms-linear-gradient(top,  rgba(45,45,45,1) 0%,rgba(0,0,0,1) 100%);
-	background: linear-gradient(top,  rgba(45,45,45,1) 0%,rgba(0,0,0,1) 100%);
-	-webkit-box-shadow: inset 0px 1px 3px 0px rgba(255, 255, 255, 1);
-	box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.35), inset 0px -1px 1px 0px rgba(255, 255, 255, 0.25), 0px 0px 8px 0px rgba(0, 0, 0, 0.4); 
-	border:1px solid #595959;
-	transition: all 500ms ease-in-out;
-	-moz-transition: all 500ms ease-in-out;
-	-webkit-transition: all 500ms ease-in-out;
-	-o-transition: all 500ms ease-in-out;
+		position:absolute;
+		z-index:1;
+		bottom:4px;
+		left:5px;
+		display:block;
+		width:90px;
+		height:90px;
+		border-radius:200px;
+		/*background: -moz-linear-gradient(top,  rgba(45,45,45,1) 0%, rgba(0,0,0,1) 100%);
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(45,45,45,1)), color-stop(100%,rgba(0,0,0,1)));
+		background: -webkit-linear-gradient(top,  rgba(45,45,45,1) 0%,rgba(0,0,0,1) 100%);
+		background: -o-linear-gradient(top,  rgba(45,45,45,1) 0%,rgba(0,0,0,1) 100%);
+		background: -ms-linear-gradient(top,  rgba(45,45,45,1) 0%,rgba(0,0,0,1) 100%);
+		background: linear-gradient(top,  rgba(45,45,45,1) 0%,rgba(0,0,0,1) 100%);
+		-webkit-box-shadow: inset 0px 1px 3px 0px rgba(255, 255, 255, 1);
+		box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.35), inset 0px -1px 1px 0px rgba(255, 255, 255, 0.25), 0px 0px 8px 0px rgba(0, 0, 0, 0.4); 
+		border:1px solid #595959;*/
+		transition: all 500ms ease-in-out;
+		-moz-transition: all 500ms ease-in-out;
+		-webkit-transition: all 500ms ease-in-out;
+		-o-transition: all 500ms ease-in-out;
 
-	&:before {
+		img{width:100%;}
+	
+	/*&:before {
 		position:absolute;
 		display:block;
 		content: "";
@@ -245,7 +247,7 @@ to {
 	    content: "\002022";
 	    width: 20px;
 	    height: 20px;
-	    /* line-height: 53px; */
+	   
 	    border-radius: 53px;
 	    top: 37px;
 	    left: 33px;
@@ -260,8 +262,8 @@ to {
 	    border: 1px solid #000;
 	    font-size: 20px;
 	    text-shadow: 0 0 3px rgba(0,0,0,.8);
+	}*/
 	}
-}
 
 	.slot{
 		position:absolute;
@@ -374,29 +376,31 @@ to {
 	}
 
 	.vinyl {
-	position:absolute;
-	z-index:1;
-	bottom:4px;
-	left:40px;
-	display:block;
-	width:175px;
-	height:175px;
-	border-radius:200px;
-	background: -moz-linear-gradient(top,  rgba(45,45,45,1) 0%, rgba(0,0,0,1) 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(45,45,45,1)), color-stop(100%,rgba(0,0,0,1)));
-	background: -webkit-linear-gradient(top,  rgba(45,45,45,1) 0%,rgba(0,0,0,1) 100%);
-	background: -o-linear-gradient(top,  rgba(45,45,45,1) 0%,rgba(0,0,0,1) 100%);
-	background: -ms-linear-gradient(top,  rgba(45,45,45,1) 0%,rgba(0,0,0,1) 100%);
-	background: linear-gradient(top,  rgba(45,45,45,1) 0%,rgba(0,0,0,1) 100%);
-	-webkit-box-shadow: inset 0px 1px 3px 0px rgba(255, 255, 255, 1);
-	box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.35), inset 0px -1px 1px 0px rgba(255, 255, 255, 0.25), 0px 0px 8px 0px rgba(0, 0, 0, 0.4); 
-	border:1px solid #595959;
-	transition: all 500ms ease-in-out;
-	-moz-transition: all 500ms ease-in-out;
-	-webkit-transition: all 500ms ease-in-out;
-	-o-transition: all 500ms ease-in-out;
+		position:absolute;
+		z-index:1;
+		bottom:4px;
+		left:40px;
+		display:block;
+		width:175px;
+		height:175px;
+		border-radius:200px;
+		/*background: -moz-linear-gradient(top,  rgba(45,45,45,1) 0%, rgba(0,0,0,1) 100%);
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(45,45,45,1)), color-stop(100%,rgba(0,0,0,1)));
+		background: -webkit-linear-gradient(top,  rgba(45,45,45,1) 0%,rgba(0,0,0,1) 100%);
+		background: -o-linear-gradient(top,  rgba(45,45,45,1) 0%,rgba(0,0,0,1) 100%);
+		background: -ms-linear-gradient(top,  rgba(45,45,45,1) 0%,rgba(0,0,0,1) 100%);
+		background: linear-gradient(top,  rgba(45,45,45,1) 0%,rgba(0,0,0,1) 100%);
+		-webkit-box-shadow: inset 0px 1px 3px 0px rgba(255, 255, 255, 1);
+		box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.35), inset 0px -1px 1px 0px rgba(255, 255, 255, 0.25), 0px 0px 8px 0px rgba(0, 0, 0, 0.4); 
+		border:1px solid #595959;*/
+		transition: all 500ms ease-in-out;
+		-moz-transition: all 500ms ease-in-out;
+		-webkit-transition: all 500ms ease-in-out;
+		-o-transition: all 500ms ease-in-out;
 
-	&:before {
+		img{width:100%;}
+
+	/*&:before {
 		position:absolute;
 		display:block;
 		content: "";
@@ -434,8 +438,8 @@ to {
 		border:1px solid #000;
 		font-size:40px;
 		text-shadow: 0px 0px 3px rgba(0,0,0, 0.8);
+	}*/
 	}
-}
 
 	.slot{
 		position:absolute;
@@ -478,10 +482,22 @@ to {
 	#song-title,#song-duration{
 		color: #fff;
 		text-align: center;
-		font-weight: bold;
 		text-transform: uppercase;
 		margin:0;
-		font-size: 16px;
+	}
+
+	#song-artist{
+	    font-weight: 100;
+	    font-size: 20px;
+	    white-space: nowrap;
+	    position: relative;
+	}
+
+	#song-title{
+		font-size: 13px;
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
+	    overflow: hidden;
 	}
 
 	.nowPlayginSVG {
@@ -525,3 +541,126 @@ to {
 	    }
 	}
 }
+
+//controles en todas las vistas
+.music-controls{
+	position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    background: #50124E;
+    border-top: 1px solid #6F336D;
+
+	.text-center{
+		color:#ffffff;
+		font-size: 25px;
+	}
+
+	//cover
+	.single-case{
+		    margin-left: 5px;
+		width: 40px;
+   		height: 40px;
+
+   		.vinyl{
+   			width: 30px;
+    		height: 30px;
+
+    		&:after{
+    			width: 10px;
+			    height: 10px;
+			    top: 10px;
+			    left: 10px;
+			    padding-left: 0px;
+    		}
+   		}
+
+   		&:after{
+   			width: 40px;
+		    height: 10px;
+		    left: 0;
+   		}
+	}
+}
+
+//ticker song name
+.scroll-left {
+
+ overflow: hidden;
+ position: relative;
+ 
+ .song-artist{
+ 	font-size: 12px;
+    color: #fff;
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+ }
+ 
+ .song-title {
+ 	font-size: 15px;
+ position: fixed;
+ width: 100%;
+ height: 100%;
+ margin: 0;
+ color:#ffffff;
+ text-align: center;
+ /* Starting position */
+ -moz-transform:translateX(100%);
+ -webkit-transform:translateX(100%);	
+ transform:translateX(100%);
+ /* Apply animation to this element */	
+ -moz-animation: scroll-left 7s linear infinite;
+ -webkit-animation: scroll-left 7s linear infinite;
+ animation: scroll-left 7s linear infinite;
+}
+}
+/* Move it (define the animation) */
+@-moz-keyframes scroll-left {
+ 0%   { -moz-transform: translateX(100%); }
+ 100% { -moz-transform: translateX(-100%); }
+}
+@-webkit-keyframes scroll-left {
+ 0%   { -webkit-transform: translateX(100%); }
+ 100% { -webkit-transform: translateX(-100%); }
+}
+@keyframes scroll-left {
+ 0%   { 
+ -moz-transform: translateX(100%); /* Browser bug fix */
+ -webkit-transform: translateX(100%); /* Browser bug fix */
+ transform: translateX(100%); 		
+ }
+ 100% { 
+ -moz-transform: translateX(-100%); /* Browser bug fix */
+ -webkit-transform: translateX(-100%); /* Browser bug fix */
+ transform: translateX(-100%); 
+ }
+}
+
+.view-btn{
+	text-align: center;
+    display: block;
+    font-size: 25px;
+    line-height: 25px;
+    margin-top: 8px;
+    color:#ffffff;
+}
+
+.coverButtons{
+	background: #50124E;
+    z-index: 9;
+}
+
+.no-left{
+	padding-left: 0;
+}
+.no-right{
+	padding-right: 0;
+}
+

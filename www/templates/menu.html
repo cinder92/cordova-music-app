@@ -8,8 +8,47 @@
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
       </ion-nav-buttons>
+      <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-android-search" ng-click="globalSearch()">
+        </button>
+      </ion-nav-buttons>
     </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>
+    <!-- reproductor en todas las vistas -->
+    <div class="music-controls" ng-hide="hideMiniControls" ng-show="!hideMiniControls">
+      <div class="row no-left no-right">
+      <div class="col-20 coverButtons">
+        <div class="single-case">
+          <div class="overlay"></div>
+          <img class="cover" src="{{songCover}}"/>
+          <div class="vinyl">
+            <img src="img/vinyl.png" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="col-60 scroll-left">
+        <p class="song-title">{{songTitle}}</p>
+        <h3 class="song-artist">{{songAuthor}}</h3>
+      </div>
+      <!--<div class="col-60 scroll-left">
+        <p class="song-title">Work (ft. Dreake ) - Rhianna - Work (ft. Dreake)</p>
+        <h3 class="song-artist">Work (ft. Dreake ) - Rhianna - Work (ft. Dreake)</h3>
+      </div>-->
+      <div class="col-20 coverButtons" ng-click="showPlayNow()">
+        <i class="icon ion-android-arrow-forward view-btn"></i>
+      </div>
+      <!--<div class="col text-center" ng-click="prevSong(songPosition)">
+        <i class="icon ion-ios-rewind-outline control"></i>
+      </div>
+      <div class="col text-center">
+        <i class="icon ion-ios-pause-outline control action-box pause" ng-show="isPlaying" ng-click="pauseSong()"></i>
+          <i class="icon ion-ios-play-outline control action-box"  ng-hide="isPlaying" ng-click="playSong()"></i>
+      </div>
+      <div class="col text-center" ng-click="nextSong(songPosition)">
+        <i class="icon ion-ios-fastforward-outline control"></i>
+      </div>-->
+    </div>
+    </div>
   </ion-side-menu-content>
 
   <ion-side-menu side="left">

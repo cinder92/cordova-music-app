@@ -5,15 +5,15 @@
 	  .module('music-player')
 	  .controller('nowPlayingCtrl', nowPlayingCtrl);
 
-	nowPlayingCtrl.$inject = ['$rootScope','$localForage','$stateParams','$cordovaMedia'];
+	nowPlayingCtrl.$inject = ['$scope','$rootScope','$localForage','$stateParams','$cordovaMedia'];
 
-	function nowPlayingCtrl($rootScope,$localForage,$stateParams,$cordovaMedia) {
+	function nowPlayingCtrl($scope,$rootScope,$localForage,$stateParams,$cordovaMedia) {
 		//content
 		var vm = this,
 		duration = 0,
 		currentSongPosition = parseInt($stateParams.position),
-		currentSongId = $stateParams.id
-		
+		currentSongId = $stateParams.id,
+		playSongAtEnter = $stateParams.play
 		vm.song = "";
 		vm.totalDuration = 0
 		var currentTiemSong = {
@@ -21,6 +21,16 @@
 			m : 0,
 			s : 0
 		}
+
+		//ocultar el reproductor mini
+		/*$scope.$on( "$ionicView.beforeEnter", function( scopes, states ) {
+	        $rootScope.hideMiniControls = true
+	    });
+
+	    $scope.$on("$ionicView.leave",function(scopes,states){
+	    	$rootScope.hideMiniControls = false
+	    })*/
+
 		//@$stateParams.id identificador de cancion
 		//@$stateParams.position posición del arreglo
 
@@ -39,7 +49,9 @@
 					vm.durationensecs = parseInt(vm.song.Duration) / 1000           
 		        	vm.totalDuration = secs2time(parseInt(vm.song.Duration)/1000);
 		        	vm.song.Duration = secs2time(parseInt(vm.song.Duration)/1000);
-		        	
+		        	$rootScope.songTitle = vm.song.Title
+		        	$rootScope.songAuthor = vm.song.Author
+		        	$rootScope.songCover = vm.song.Cover
 		        	//widget
 			        MusicControls.destroy()
 
@@ -58,13 +70,13 @@
 			        //comienza para reproducción
 					$rootScope.media = $cordovaMedia.newMedia(vm.song.Path);
 					
-					vm.playSong()
+					$rootScope.playSong()
 					
 					//almacenar la posición actual de la canción
 					$rootScope.songPosition = position
 					$rootScope.isPlaying = true;
 
-
+					document.getElementById('circle').style['stroke-dashoffset'] = 200
 					//actualizar la barra de tiempo
 					var time = vm.durationensecs; /* how long the timer runs for */
 					var initialOffset = '200';
@@ -117,7 +129,7 @@
 									&& parseInt(sec) == (vm.totalDuration.s-2)
 								){
 									//console.log(hrs,mins,sec,vm.totalDuration.h,vm.totalDuration.m,vm.totalDuration.s-2)
-									vm.nextSong($rootScope.songPosition);
+									$rootScope.nextSong($rootScope.songPosition);
 
 								}
 							},
@@ -134,7 +146,6 @@
 
 		function clearIntervals(){
 			clearInterval($rootScope.interval);
-			document.getElementById('circle').style['stroke-dashoffset'] = 200
 		}
 
 		function onSuccess(success){
@@ -145,26 +156,26 @@
 					case 'music-controls-next':
 						//Do something 
 						clearIntervals()
-						vm.nextSong($rootScope.songPosition);
+						$rootScope.nextSong($rootScope.songPosition);
 					break;
 					case 'music-controls-previous':
 						//Do something 
 						clearIntervals()
-						vm.prevSong($rootScope.songPosition);
+						$rootScope.prevSong($rootScope.songPosition);
 					break;
 					case 'music-controls-pause':
 						//Do something
 						if($rootScope.isPlaying){
-							vm.pauseSong()
+							$rootScope.pauseSong()
 							MusicControls.updateIsPlaying(false);
 						}else{
-							vm.playSong()
+							$rootScope.playSong()
 							MusicControls.updateIsPlaying(true);
 						}
 					break;
 					case 'music-controls-play':
 						//Do something 
-						vm.playSong()
+						$rootScope.playSong()
 						MusicControls.updateIsPlaying(true);
 					break;
 			 
@@ -194,12 +205,12 @@
 			console.log('error => '+error)
 		}
 
-		vm.playSong = function(){
+		$rootScope.playSong = function(){
 			$rootScope.isPlaying = true
 			$rootScope.pauseInterval = false
 			$rootScope.media.play()
 		}
-		vm.pauseSong = function(){
+		$rootScope.pauseSong = function(){
 			$rootScope.isPlaying = false
 			$rootScope.pauseInterval = true
 			$rootScope.media.pause()
@@ -207,8 +218,8 @@
 		vm.stopSong = function(){
 			$rootScope.media.stop()
 		}
-		vm.nextSong = function(position){
-
+		$rootScope.nextSong = function(position){
+			position = (undefined != position) ? position : 0;
 			$localForage.getItem('songList').then(function(songs) {
 				var posicion = songs[position+1]
 				//posicion devuelve un objeto de cancion
@@ -219,9 +230,10 @@
 				}
 			});
 		}
-		vm.prevSong = function(position){
+		$rootScope.prevSong = function(position){
 			//con la posición del arreglo, buscar en el arreglo de canciones
 			//su Id para reproducirla
+			position = (undefined != position) ? position : 0;
 			$localForage.getItem('songList').then(function(songs) {
 				var posicion = songs[parseInt(position)-1]
 				if(undefined != posicion){
@@ -248,8 +260,13 @@
 	        return obj;
 	    }
 
-	    //reproducir cancion actual
-		vm.getCurrentSong(currentSongId,currentSongPosition)
+	    $rootScope.$on('playSong', function(event, args) {
+	    	vm.getCurrentSong(args.id,args.position)
+	    });
+
+	    
+		//vm.getCurrentSong(currentSongId,currentSongPosition)
+	    
 
 		//obtener la información de la canción en curso
 	}
