@@ -223,10 +223,13 @@
 			$localForage.getItem('songList').then(function(songs) {
 				var posicion = songs[position+1]
 				//posicion devuelve un objeto de cancion
-				
+				var Id = posicion.Id
 				if(undefined != posicion){
-				   var Id = posicion.Id
+				   
 				   vm.getCurrentSong(Id,parseInt(position)+1)	
+				}else{
+					//mostrar la primera canción de la lista
+				    vm.getCurrentSong(Id,0)
 				}
 			});
 		}
@@ -236,9 +239,13 @@
 			position = (undefined != position) ? position : 0;
 			$localForage.getItem('songList').then(function(songs) {
 				var posicion = songs[parseInt(position)-1]
+				var Id = posicion.Id
 				if(undefined != posicion){
-				   var Id = posicion.Id
+				   
 				   vm.getCurrentSong(Id,parseInt(position)-1)	
+				}else{
+					//mostrar la primera canción de la lista
+				    vm.getCurrentSong(Id,0)
 				}
 			});
 		}
