@@ -9,7 +9,9 @@
         </button>
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-android-search" ng-click="globalSearch()">
+        <button class="button button-icon button-clear ion-android-search" ng-click="globalSearch()" ng-hide="isPlaylist">
+        </button>
+        <button class="button button-icon button-clear ion-plus-round" ng-click="addnewPlayList()" ng-show="isPlaylist">
         </button>
       </ion-nav-buttons>
     </ion-nav-bar>
@@ -20,16 +22,16 @@
     
     <ion-content>
       <ion-list>
-        <ion-item menu-close ui-sref="app.songlist" transitiontype="slide" direction="left" go-native>
+        <ion-item menu-close ui-sref="app.songlist">
           All Songs
         </ion-item>
-        <ion-item menu-close ui-sref="app.favourites" transitiontype="slide" direction="left" go-native>
+        <ion-item menu-close ui-sref="app.favourites">
           Favourites
         </ion-item>
-        <ion-item menu-close ui-sref="app.playlists" transitiontype="slide" direction="left" go-native>
+        <ion-item menu-close ui-sref="app.playlists">
           Playlists
         </ion-item>
-        <ion-item menu-close ui-sref="app.feedback" transitiontype="slide" direction="left" go-native>
+        <ion-item menu-close ui-sref="app.feedback">
           Feedback
         </ion-item>
       </ion-list>

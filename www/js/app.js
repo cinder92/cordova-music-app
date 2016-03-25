@@ -3,32 +3,23 @@
 
   angular.module('music-player', ['ionic','ngCordova','LocalForageModule'])
 
-  .run(function($ionicPlatform,$rootScope) {
+  .run(function($ionicPlatform,$rootScope,$cordovaStatusbar) {
     $rootScope.hideMiniControls = false
     $ionicPlatform.ready(function() {
 
-      // then override any default you want
-        /*window.plugins.nativepagetransitions.globalOptions.duration = 500;
-        window.plugins.nativepagetransitions.globalOptions.iosdelay = 350;
-        window.plugins.nativepagetransitions.globalOptions.androiddelay = 350;
-        window.plugins.nativepagetransitions.globalOptions.winphonedelay = 350;
-        window.plugins.nativepagetransitions.globalOptions.slowdownfactor = 4;
-        // these are used for slide left/right only currently
-        window.plugins.nativepagetransitions.globalOptions.fixedPixelsTop = 0;
-        window.plugins.nativepagetransitions.globalOptions.fixedPixelsBottom = 0;*/
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
       if (window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         cordova.plugins.Keyboard.disableScroll(true);
       }
-      if (window.StatusBar) {
-        // org.apache.cordova.statusbar required
-        if (cordova.platformId == 'android') {
-            StatusBar.backgroundColorByHexString("#fff");
-        }
-                //StatusBar.styleDefault();
+     
+      // org.apache.cordova.statusbar required
+      window.plugins.tintstatusbar.setColor('#4E407D')
+      if (cordova.platformId == 'android') {
+          //console.log('soy => '+cordova.platformId)
+          //statusbarTransparent.enable()
+          window.plugins.tintstatusbar.setColor('#4E407D')
       }
+                //StatusBar.styleDefault();
 
     });
   })
@@ -69,6 +60,16 @@
         'menuContent': {
           templateUrl: 'templates/favourites.html',
           controller: 'favouritesCtrl as favourite'
+        }
+      }
+    })
+
+    .state('app.playlists', {
+      url: '/playlists',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/playlists.html',
+          controller: 'playlistCtrl as playlist'
         }
       }
     })

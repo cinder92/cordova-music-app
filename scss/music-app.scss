@@ -40,7 +40,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6e5ab2', end
 }
 
 //icons
-.ion-navicon,.back-button,.ion-android-arrow-back,.ion-android-search,.ion-android-funnel{
+.ion-navicon,.back-button,.ion-android-arrow-back,.ion-android-search,.ion-android-funnel,.ion-plus-round{
 	color:#fff !important;
 }
 
@@ -692,8 +692,21 @@ body.menu-open .side-menu-open{
 body.menu-open ion-side-menus, body.menu-open ion-side-menu{
   background: #6e5ab2;
 }
+
+ion-side-menu .scroll-content{
+	background: #6e5ab2 !important;
+}
+
 ion-side-menu.menu-left-axis ion-item.item a.item-content, ion-side-menu.menu-left-axis ion-item.item{
   background-color: transparent !important;
   border-color: transparent !important;
   color:#fff
+}
+
+.platform-ios.has-translucent-status-bar.app-header-bar{
+	padding-top:20px;
+}
+
+.platform-android.has-translucent-status-bar.app-header-bar{
+	padding-top:25px;
 }

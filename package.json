@@ -19,7 +19,6 @@
     "cordova-plugin-console",
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
-    "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
     "cordova-plugin-file",
     "dante-plugin-getSdCard",
