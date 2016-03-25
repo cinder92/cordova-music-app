@@ -47,10 +47,10 @@
 		<!-- other controls -->
 		<div class="row" id="other-controls">
 			<div class="col-50" ng-click="shuffle()">
-				<i class="icon ion-ios-shuffle"></i>
+				<i class="icon ion-ios-shuffle" ng-class="{'active' : isShuffle}"></i>
 			</div>
 			<div class="col-50" ng-click="addtoFavorites(songId)">
-				<i class="icon ion-android-favorite-outline" ng-class="{'active' : playing.isFavorite}"></i>
+				<i class="icon" ng-class="{'active' : playing.isFavorite, 'ion-android-favorite' : playing.isFavorite, 'ion-android-favorite-outline' :  !playing.isFavorite}"></i>
 			</div>
 		</div>
 	</ion-content>

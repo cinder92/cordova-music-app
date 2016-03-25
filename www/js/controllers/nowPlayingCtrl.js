@@ -308,14 +308,19 @@
 	    $rootScope.shuffle = function(){
 	    	//reproducir canciones aleatorias (sencillo)
 	    	//obtener la longitud de las canciones
-	    	$localForage.getItem('songList').then(function(songs){
-	    		var length = songs.length,
-	    		newposition = _.random(length),
-	    		playthis = songs[newposition]
+	    	if($rootScope.isShuffle){
+	    		$rootScope.isShuffle = false
+	    	}else{
+	    		$localForage.getItem('songList').then(function(songs){
+		    		var length = songs.length,
+		    		newposition = _.random(length),
+		    		playthis = songs[newposition]
 
-	    		$rootScope.isShuffle = true
-	    		vm.getCurrentSong(playthis.Id,newposition)
-	    	})
+		    		$rootScope.isShuffle = true
+		    		vm.getCurrentSong(playthis.Id,newposition)
+		    	})
+	    	}
+	    	
 	    }
 
 	    $rootScope.addtoFavorites = function(id){
