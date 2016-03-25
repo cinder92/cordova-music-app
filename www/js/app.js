@@ -13,7 +13,7 @@
       }
      
       // org.apache.cordova.statusbar required
-      window.plugins.tintstatusbar.setColor('#4E407D')
+      //window.plugins.tintstatusbar.setColor('#4E407D')
       if (cordova.platformId == 'android') {
           //console.log('soy => '+cordova.platformId)
           //statusbarTransparent.enable()

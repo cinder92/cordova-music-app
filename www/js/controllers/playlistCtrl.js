@@ -34,11 +34,10 @@
 		$rootScope.addnewPlayList = function(){
 			//añadir nueva playlist
 			var plsname = prompt('Write new name','Create new playlist', ['Cancel,Perfect!'], 'New Playlist');
-
+			
 			if(plsname != ''){
 
 				$localForage.getItem('playlist').then(function(playlist){
-					console.log(playlist)
 					if(undefined != playlist && null != playlist && playlist.length > 0){
 						//buscar el nombre actual
 						var pls = _.find(playlist,{'name' : plsname})
@@ -66,6 +65,8 @@
 
 						$localForage.setItem('playlist',currentPlayLists);
 					}
+
+					vm.getPlaylists()
 				})
 			}
 		}

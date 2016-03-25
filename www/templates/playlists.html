@@ -1,9 +1,13 @@
 <ion-view view-title="Playlists">
   <ion-content>
   	<ion-list>
-  		<ion-item ng-repeat="pls in playlist.playlists" ui-sref="app.playlistsongs({ 'pid' : pls.id })">
+  		<ion-item ng-repeat="pls in playlist.playlists" ui-sref="app.playlistsongs({ 'pid' : pls.id })" class="item-icon-right">
   			{{pls.name}}
+  			<i class="icon ion-ios-arrow-right"></i>
   		</ion-item>
   	</ion-list>
+  	<div class="row" ng-show="playlist.playlists.length == 0">
+		<h3 class="not-show">There aren't playlists yet</h3>
+	</div>
   </ion-content>
 </ion-view>

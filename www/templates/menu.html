@@ -1,5 +1,5 @@
 <ion-side-menus enable-menu-with-back-views="false">
-  <ion-side-menu-content ion-side-menu-content-scale>
+  <ion-side-menu-content >ion-side-menu-content-scale
     <ion-nav-bar class="bar-stable">
       <ion-nav-back-button>
       </ion-nav-back-button>
@@ -18,23 +18,32 @@
     <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
 
-  <ion-side-menu side="left" class="bar-calm menu-left-axis">
+  <ion-side-menu side="left" width="200" class="bar-calm menu-left-axis">
     
     <ion-content>
-      <ion-list>
-        <ion-item menu-close ui-sref="app.songlist">
+      <!--<ion-list>
+        <ion-item menu-close ui-sref="app.songlist" class='slide_effect'>
           All Songs
         </ion-item>
-        <ion-item menu-close ui-sref="app.favourites">
-          Favourites
+        <ion-item menu-close ui-sref="app.favourites" class="item-icon-left slide_effect">
+         <i class="icon ion-heart"></i>
+          Favorites
         </ion-item>
-        <ion-item menu-close ui-sref="app.playlists">
+        <ion-item menu-close ui-sref="app.playlists" class="slide_effect">
           Playlists
         </ion-item>
-        <ion-item menu-close ui-sref="app.feedback">
+        <ion-item menu-close ui-sref="app.feedback" class="slide_effect">
           Feedback
         </ion-item>
-      </ion-list>
+      </ion-list>-->
+      <ion-scroll>
+          <div direction='y' ng-init="names=['home','wifi','settings','options','search','cloud','stopwatch','apps','map','locate','compass','create','call']" overflow-scroll='true'>
+            <ion-item class='slide_up' menu-close ng-repeat='x in names'>
+              <i class='icon ion-android-{{x}}'></i>
+              <span>{{x}}</span><span class="sub">This is a sub title</span>
+            </ion-item>
+          </div>
+        </ion-scroll>
     </ion-content>
   </ion-side-menu>
 </ion-side-menus>

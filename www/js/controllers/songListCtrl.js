@@ -12,6 +12,7 @@
 		var vm = this
 		vm.list = []
 		vm.songList = ''
+		vm.searchSong = ''
 
 		$rootScope.globalSearch = function(){
 			$rootScope.showSearch = true
@@ -121,6 +122,7 @@
 	    $rootScope.showPlayNow = function(id,position,showModal){
 	    	$rootScope.showSearch = false
 	    	vm.songList = ''
+	    	vm.searchSong = ''
 
 	    	if(undefined == showModal){
 	    		viewModal.show()

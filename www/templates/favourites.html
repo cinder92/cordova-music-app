@@ -1,4 +1,4 @@
-<ion-view view-title="Favourites">
+<ion-view view-title="Favorites">
   <ion-content>
    	<div class="list" ng-show="showSearch">
 	  <div class="item item-input-inset">
@@ -8,9 +8,13 @@
 	  </div>
 	</div>
     <ion-list>
-		<ion-item class="songFile" ng-repeat="song in favourite.list | filter : favourite.searchSong" ng-click="showPlayNow(song.Id,$index,false)">
-			<h2>{{song.Title}} | {{song.Album}}</h2>
+		<ion-item class="songFile item-icon-right" ng-repeat="song in favourite.list | filter : favourite.searchSong" ng-click="showPlayNow(song.Id,$index,false)">
+			<h2>{{song.Title}} | {{song.Author}}</h2>
+			<i class="icon ion-play"></i>
 		</ion-item>
 	</ion-list>
+	<div class="row" ng-show="favourite.list.length == 0">
+		<h3 class="not-show">There aren't songs yet</h3>
+	</div>
   </ion-content>
 </ion-view>

@@ -48,14 +48,13 @@
 	 	}
 
 	 	vm.addToPlaylist = function(pid,sid){
-	 		console.log(pid,sid)
 	 		if(undefined != pid && undefined != sid){
 	 			//buscar la cancion en songList
 	 			$localForage.getItem('songList').then(function(songs){
-	 				console.log('canciones => '+songs)
+	 			
 	 				if(undefined != songs && songs.length > 0){
 	 					var song = _.find(songs,{'Id' : sid})
-	 					console.log('song => '+JSON.stringify(song))
+
 	 					if(undefined != song){
 	 						//añadimos la canción la playlist
 	 						song.pid = pid
@@ -69,7 +68,7 @@
 
 	 								if(undefined != psongs[exist] || null != psongs[exist]){
 	 									//avisar
-	 									//console.log('ya existe en esta lista')
+	 									console.log('ya existe en esta lista')
 	 								}else{
 	 									//console.log('no existe')
 	 									psongs.push(song)
@@ -85,29 +84,6 @@
 	 					}
 	 				}
 	 			})
-
-	 			/*$localForage.getItem('playlist').then(function(playlists){
-	 				var current = _.find(playlists,{'id' : pid})
-	 				console.log('playlist => '+current)
-	 				//encontrar el objeto de la canción en la lista de canciones
-	 				$localForage.getItem('songList').then(function(songList){
-	 					if(undefined != songList){
-	 						var findSong = _.find(songList,{'Id':sid})
-	 						
-	 						if(undefined != findSong){
-	 							if(current.songs.length > 0){
-				 					current.songs.push(findSong)
-				 					console.log(current)
-				 					$localForage.setItem('playlist',current)
-				 				}else{
-				 					current.songs = [findSong]
-				 					console.log(current)
-				 					$localForage.setItem('playlist',current)
-				 				}
-	 						}
-	 					}
-	 				})
-	 			})*/
 	 		}
 	 	}
 
