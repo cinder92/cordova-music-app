@@ -108,10 +108,19 @@
 	      viewModal = modal;
 	    });
 
-	    $rootScope.showPlayNow = function(id,position){
+	    $rootScope.showPlayNow = function(id,position,showModal){
 	    	$rootScope.showSearch = false
 	    	vm.songList = ''
-	    	viewModal.show()
+
+	    	if(undefined == showModal){
+	    		viewModal.show()
+	    	}else{
+	    		if(showModal == false){
+	    			vm.closePlayNow()
+	    		}
+	    	}
+
+	    	
 	    	if(undefined != id && undefined != position){
 	    		//tocar canción
 		    	var args = {

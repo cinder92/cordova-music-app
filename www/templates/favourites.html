@@ -8,7 +8,7 @@
 	  </div>
 	</div>
     <ion-list>
-		<ion-item class="songFile" ng-repeat="song in favourite.list | filter : favourite.searchSong" ng-click="showPlayNow(song.Id,$index)">
+		<ion-item class="songFile" ng-repeat="song in favourite.list | filter : favourite.searchSong" ng-click="showPlayNow(song.Id,$index,false)">
 			<h2>{{song.Title}} | {{song.Album}}</h2>
 		</ion-item>
 	</ion-list>
