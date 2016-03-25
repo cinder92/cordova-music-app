@@ -19,7 +19,9 @@
 				//encontrar las canciones de esta playlist
 				//console.log(psongs.length)
 				for(var i = 0; i < psongs.length; i++){
-					vm.list.push(psongs[i])
+					if(psongs[i].pid == parseInt(plsid)){
+						vm.list.push(psongs[i])
+					}
 				}
 				//vm.list.push(_.find(psongs,{'pid' : parseInt(plsid)}))
 				//console.log(_.find(psongs,{'pid' : plsid}))
