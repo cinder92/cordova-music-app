@@ -1,0 +1,30 @@
+<ion-popover-view>
+	<ion-content>
+	  <ion-list>
+	  	<ion-item ng-click="playing.submenu = true" class="item-icon-right">
+	  		 Add to playlist
+	  		 <i class="icon ion-chevron-right"></i>
+	  	</ion-item>
+	  	<ion-item ng-show="playing.submenu">
+            <ion-list>
+			  	<ion-item ng-repeat="playlist in playing.playlists" ng-click="playing.addToPlaylist(playlist.id,songId)">
+			  		Add to {{playlist.name}}
+			  	</ion-item>
+	  		</ion-list>
+        </ion-item>
+
+	  	<ion-item>
+	  		Share via Facebook
+	  	</ion-item>
+	  	<ion-item>
+	  		Share via Twitter
+	  	</ion-item>
+	  	<ion-item>
+	  		Share via Whatsapp
+	  	</ion-item>
+	  	<ion-item>
+	  		Share via Facebook
+	  	</ion-item>
+	  </ion-list>
+	</ion-content>
+</ion-popover-view>

@@ -5,30 +5,34 @@
 	  .module('music-player')
 	  .controller('playlistSongCtrl', playlistSongCtrl);
 
-	playlistSongCtrl.$inject = ['$rootScope','$localForage','$stateParams'];
+	playlistSongCtrl.$inject = ['$scope','$rootScope','$localForage','$stateParams']
 
-	function playlistSongCtrl($rootScope,$localForage,$stateParams) {
+	function playlistSongCtrl($scope,$rootScope,$localForage,$stateParams) {
 		//content
 		var vm = this,
 		plsid = $stateParams.pid
-		console.log(plsid)
-		vm.list
 
-		$localForage.getItem('playlist').then(function(playlists){
-			var current = _.find(playlists,{'id' : plsid}),
-			songs = current.songs
-
-			vm.list = songs;
-
-			console.log(vm.list)
+		
+		$scope.$on("$ionicView.enter",function(){
+			vm.list = []
+			$localForage.getItem('playlistSongs').then(function(psongs){
+				//encontrar las canciones de esta playlist
+				//console.log(psongs.length)
+				for(var i = 0; i < psongs.length; i++){
+					vm.list.push(psongs[i])
+				}
+				//vm.list.push(_.find(psongs,{'pid' : parseInt(plsid)}))
+				//console.log(_.find(psongs,{'pid' : plsid}))
+			})
 		})
 
-		vm.play = function(position,id){
+		vm.play = function(id,position){
 			var args = {
 				plsid : plsid,
 				id : id,
 				position : position
 			}
+			//console.log(args)
 			$rootScope.$emit('fromPlaylist',args)
 		}
 		//get songs lists from selected playlist

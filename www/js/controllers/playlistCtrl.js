@@ -24,6 +24,7 @@
 
 		vm.getPlaylists = function(){
 			$localForage.getItem('playlist').then(function(pls){
+				//console.log(pls)
 				if(undefined != pls && null != pls && pls.length > 0){
 					vm.playlists = pls
 				}

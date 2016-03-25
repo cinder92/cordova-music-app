@@ -5,9 +5,9 @@
 	  .module('music-player')
 	  .controller('nowPlayingCtrl', nowPlayingCtrl);
 
-	nowPlayingCtrl.$inject = ['$scope','$rootScope','$localForage','$stateParams','$cordovaMedia','favoriteSongs'];
+	nowPlayingCtrl.$inject = ['$ionicPopover','$scope','$rootScope','$localForage','$stateParams','$cordovaMedia','favoriteSongs'];
 
-	function nowPlayingCtrl($scope,$rootScope,$localForage,$stateParams,$cordovaMedia,favoriteSongs) {
+	function nowPlayingCtrl($ionicPopover,$scope,$rootScope,$localForage,$stateParams,$cordovaMedia,favoriteSongs) {
 		//content
 		var vm = this,
 		duration = 0,
@@ -22,6 +22,9 @@
 			s : 0
 		}
 
+		vm.playlists
+		vm.submenu = false
+
 		vm.isFavorite = false
 		$rootScope.isShuffle = false
 		$rootScope.isFromPlaylist = false
@@ -29,16 +32,99 @@
 		//@$stateParams.id identificador de cancion
 		//@$stateParams.position posición del arreglo
 
+		$ionicPopover.fromTemplateUrl('templates/popover.html', {
+	    	scope: $scope
+	 	}).then(function(popover) {
+	    	$scope.popover = popover;
+	  	});
+
+		vm.openPopover = function($event){
+			$scope.popover.show($event);
+
+			//get al playlist
+	 		$localForage.getItem('playlist').then(function(playlists){
+	 			vm.playlists = playlists
+	 		})
+	 	}
+
+	 	vm.addToPlaylist = function(pid,sid){
+	 		console.log(pid,sid)
+	 		if(undefined != pid && undefined != sid){
+	 			//buscar la cancion en songList
+	 			$localForage.getItem('songList').then(function(songs){
+	 				console.log('canciones => '+songs)
+	 				if(undefined != songs && songs.length > 0){
+	 					var song = _.find(songs,{'Id' : sid})
+	 					console.log('song => '+JSON.stringify(song))
+	 					if(undefined != song){
+	 						//añadimos la canción la playlist
+	 						song.pid = pid
+
+	 						$localForage.getItem('playlistSongs').then(function(psongs){
+	 							if(undefined != psongs && psongs.length > 0){
+	 								//existen canciones
+	 								//verificar que no exista en la playlist
+	 								var exist = _.findIndex(psongs,song);
+	 								//console.log('exist => '+exist,psongs[exist])
+
+	 								if(undefined != psongs[exist] || null != psongs[exist]){
+	 									//avisar
+	 									//console.log('ya existe en esta lista')
+	 								}else{
+	 									//console.log('no existe')
+	 									psongs.push(song)
+	 									$localForage.setItem('playlistSongs',psongs)
+	 								}
+	 							}else{
+	 								var psongs = []
+	 								psongs.push(song)
+	 								$localForage.setItem('playlistSongs',psongs)
+	 								//no existen canciones
+	 							}
+	 						})
+	 					}
+	 				}
+	 			})
+
+	 			/*$localForage.getItem('playlist').then(function(playlists){
+	 				var current = _.find(playlists,{'id' : pid})
+	 				console.log('playlist => '+current)
+	 				//encontrar el objeto de la canción en la lista de canciones
+	 				$localForage.getItem('songList').then(function(songList){
+	 					if(undefined != songList){
+	 						var findSong = _.find(songList,{'Id':sid})
+	 						
+	 						if(undefined != findSong){
+	 							if(current.songs.length > 0){
+				 					current.songs.push(findSong)
+				 					console.log(current)
+				 					$localForage.setItem('playlist',current)
+				 				}else{
+				 					current.songs = [findSong]
+				 					console.log(current)
+				 					$localForage.setItem('playlist',current)
+				 				}
+	 						}
+	 					}
+	 				})
+	 			})*/
+	 		}
+	 	}
+
 		vm.getCurrentSong = function(id,position,plsid){
 			//si el id y la posición no están vacíos
 			$rootScope.hideMiniControls = false
 			vm.durationensecs = 0
+			///console.log(id,position,plsid)
 			if(undefined != id && undefined != position){
 
 				//verificar que la canción provenga de una playlist
 				var db = 'songList'
-				if($rootScope.isFromPlaylist){
-					db = 'playlist'
+				if($rootScope.isFromPlaylist && plsid > 0){
+					db = 'playlistSongs'
+					$rootScope.plsid = plsid
+				}else{
+					$rootScope.isFromPlaylist = false
 				}
 				$localForage.getItem(db).then(function(songs) {
 					//se parseo el Id porque sino, no encuentra la canción,
@@ -47,12 +133,15 @@
 					clearInterval(duration)
 					clearIntervals()
 					if($rootScope.isFromPlaylist){
+						//console.log(songs)
 						//buscar las canciones de la playlist
-						var plsSongs = _.find(songs,{ 'id' : plsid })
+						vm.song = _.find(songs,{ 'pid' : parseInt(plsid), 'Id': id })
+						//console.log('desde play list => '+JSON.stringify(vm.song))
 						//buscar la canción en cuestión
-						vm.song = _.find(plsSongs.songs, { 'Id': id });
+						//vm.song = _.find(plsSongs, { 'Id': id });
 					}else{
 						vm.song = _.find(songs, { 'Id': id });
+						//console.log('reprod normal => '+JSON.stringify(vm.song))
 					}	
 					
 					vm.durationensecs = parseInt(vm.song.Duration) / 1000           
@@ -62,6 +151,7 @@
 		        	$rootScope.songAuthor = vm.song.Author
 		        	$rootScope.songCover = vm.song.Cover
 		        	$rootScope.songId = id
+		        	$rootScope.songPosition = position
 		        	//console.log(id)
 
 		        	//verificar que sea favorita
@@ -171,7 +261,7 @@
 		}
 
 		function onSuccess(success){
-			console.log('Bien! => '+success)
+			//console.log('Bien! => '+success)
 
 			function events(action) {
 				switch(action){
@@ -240,12 +330,13 @@
 		vm.stopSong = function(){
 			$rootScope.media.stop()
 		}
-		$rootScope.nextSong = function(position,plsid){
+		$rootScope.nextSong = function(position){
 			position = (undefined != position) ? position : 0;
 			
 			var db = 'songList'
 			if($rootScope.isFromPlaylist){
-				db = 'playlist'
+				db = 'playlistSongs'
+				console.log('posición actual => '+position)
 			}
 			//si está activado el shuffle
 			if(!$rootScope.isShuffle){
@@ -253,9 +344,15 @@
 
 					//buscar la posición de playlists
 					if($rootScope.isFromPlaylist){
-						var pls = _.find(songs,{ 'id' : plsid }),
-						//buscar la canción en cuestión
-						songs = pls.songs
+						var newSongs = []
+						for(var i = 0; i < songs.length; i++){
+							if(songs[i].pid == parseInt($rootScope.plsid)){
+								newSongs.push(songs[i])
+							}
+						}
+
+						songs = newSongs
+						//console.log(songs)
 					}
 
 					var posicion = songs[position+1]
@@ -264,14 +361,14 @@
 					var Id = (undefined != posicion) ? posicion.Id : songs[0].Id ;
 					if(undefined != posicion){
 					   if($rootScope.isFromPlaylist){
-					   		vm.getCurrentSong(Id,parseInt(position)+1,plsid)
+					   		vm.getCurrentSong(Id,parseInt(position)+1,$rootScope.plsid)
 					   }else{
 					   		vm.getCurrentSong(Id,parseInt(position)+1)
 					   }	
 					}else{
 						//mostrar la primera canción de la lista
 					    if($rootScope.isFromPlaylist){
-					   		vm.getCurrentSong(Id,0,plsid)
+					   		vm.getCurrentSong(Id,0,$rootScope.plsid)
 					   }else{
 					   		vm.getCurrentSong(Id,0)
 					   }
@@ -282,9 +379,15 @@
 
 					//buscar la posición de playlists
 					if($rootScope.isFromPlaylist){
-						var pls = _.find(songs,{ 'id' : plsid }),
-						//buscar la canción en cuestión
-						songs = pls.songs
+						var newSongs = []
+						for(var i = 0; i < songs.length; i++){
+							if(songs[i].pid == parseInt($rootScope.plsid)){
+								newSongs.push(songs[i])
+							}
+						}
+
+						songs = newSongs
+						//console.log(songs)
 					}
 
 		    		var length = songs.length,
@@ -293,7 +396,7 @@
 
 		    		//buscar la posición de playlists
 					if($rootScope.isFromPlaylist){
-						vm.getCurrentSong(playthis.Id,newposition,plsid)
+						vm.getCurrentSong(playthis.Id,newposition,$rootScope.plsid)
 					}else{
 						vm.getCurrentSong(playthis.Id,newposition)
 					}
@@ -307,7 +410,8 @@
 			
 			var db = 'songList'
 			if($rootScope.isFromPlaylist){
-				db = 'playlist'
+				db = 'playlistSongs'
+				console.log('posición actual => '+position)
 			}
 			//si está activado el shuffle
 			if(!$rootScope.isShuffle){
@@ -315,9 +419,15 @@
 
 					//buscar la posición de playlists
 					if($rootScope.isFromPlaylist){
-						var pls = _.find(songs,{ 'id' : plsid }),
-						//buscar la canción en cuestión
-						songs = pls.songs
+						var newSongs = []
+						for(var i = 0; i < songs.length; i++){
+							if(songs[i].pid == parseInt($rootScope.plsid)){
+								newSongs.push(songs[i])
+							}
+						}
+
+						songs = newSongs
+						//console.log(songs)
 					}
 
 					var posicion = songs[position-1]
@@ -326,14 +436,14 @@
 					var Id = (undefined != posicion) ? posicion.Id : songs[0].Id ;
 					if(undefined != posicion){
 					   if($rootScope.isFromPlaylist){
-					   		vm.getCurrentSong(Id,parseInt(position)-1,plsid)
+					   		vm.getCurrentSong(Id,parseInt(position)-1,$rootScope.plsid)
 					   }else{
 					   		vm.getCurrentSong(Id,parseInt(position)-1)
 					   }	
 					}else{
 						//mostrar la primera canción de la lista
 					    if($rootScope.isFromPlaylist){
-					   		vm.getCurrentSong(Id,0,plsid)
+					   		vm.getCurrentSong(Id,0,$rootScope.plsid)
 					   }else{
 					   		vm.getCurrentSong(Id,0)
 					   }
@@ -344,9 +454,15 @@
 
 					//buscar la posición de playlists
 					if($rootScope.isFromPlaylist){
-						var pls = _.find(songs,{ 'id' : plsid }),
-						//buscar la canción en cuestión
-						songs = pls.songs
+						var newSongs = []
+						for(var i = 0; i < songs.length; i++){
+							if(songs[i].pid == parseInt($rootScope.plsid)){
+								newSongs.push(songs[i])
+							}
+						}
+
+						songs = newSongs
+						//console.log(songs)
 					}
 
 		    		var length = songs.length,
@@ -355,7 +471,7 @@
 
 		    		//buscar la posición de playlists
 					if($rootScope.isFromPlaylist){
-						vm.getCurrentSong(playthis.Id,newposition,plsid)
+						vm.getCurrentSong(playthis.Id,newposition,$rootScope.plsid)
 					}else{
 						vm.getCurrentSong(playthis.Id,newposition)
 					}
@@ -415,6 +531,7 @@
 
 	    $rootScope.$on('fromPlaylist',function(event,args){
 	    	$rootScope.isFromPlaylist = true
+	    	console.log('datos => '+JSON.stringify(args))
 	    	vm.getCurrentSong(args.id,args.position,args.plsid)
 	    })
 

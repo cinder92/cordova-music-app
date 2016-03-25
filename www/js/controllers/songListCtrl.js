@@ -17,45 +17,55 @@
 			$rootScope.showSearch = true
 		}
 
-		searchFiles.searchInDirectorys().then(function(songList){
-	      	
+		$localForage.getItem('songList').then(function(songs){
+			if(songs.length > 0){
+				vm.list = songs
+			}else{
 
-	      	//obtener la lista
+				searchFiles.searchInDirectorys().then(function(songList){
+			      	
 
-	      	for(var i = 0; i < songList.length; i++){
-	      		/*
-				items.put("Id", thisId);
-                    items.put("Album", album);
-                    items.put("Author", author);
-                    items.put("Title", title);
-                    items.put("Genre", genero);
-                    items.put("Cover", encoded);
-                    items.put("Duration", Duration);
-                    items.put("Path", thisPath);
-	      		*/
-	      		var song = {
-	      			Id : (songList[i].Title + songList[i].Duration).replace(/\W+/g, "").replace(/\s/g,""),
-	      			Title : songList[i].Title,
-	      			Duration : songList[i].Duration,
-	      			Cover : songList[i].Cover,
-	      			Author : songList[i].Author,
-	      			Genre : songList[i].Genre,
-	      			Path : songList[i].Path,
-	      			Album : songList[i].Album
-	      		}
+			      	//obtener la lista
 
-	      		vm.list.push(song)
-	      	}
+			      	for(var i = 0; i < songList.length; i++){
+			      		/*
+						items.put("Id", thisId);
+		                    items.put("Album", album);
+		                    items.put("Author", author);
+		                    items.put("Title", title);
+		                    items.put("Genre", genero);
+		                    items.put("Cover", encoded);
+		                    items.put("Duration", Duration);
+		                    items.put("Path", thisPath);
+			      		*/
+			      		var song = {
+			      			Id : (songList[i].Title + songList[i].Duration).replace(/\W+/g, "").replace(/\s/g,""),
+			      			Title : songList[i].Title,
+			      			Duration : songList[i].Duration,
+			      			Cover : songList[i].Cover,
+			      			Author : songList[i].Author,
+			      			Genre : songList[i].Genre,
+			      			Path : songList[i].Path,
+			      			Album : songList[i].Album
+			      		}
 
-	      	//console.log(vm.list)
-	      	//guardar en la base de datos la información de las canciones
-	      	$localForage.setItem('songList',vm.list);
-	      
-	    },function(error){
-	      alert(error)
-	    })
+			      		vm.list.push(song)
+			      	}
 
-	   /* vm.list = [
+			      	//console.log(vm.list)
+			      	//guardar en la base de datos la información de las canciones
+			      	$localForage.setItem('songList',vm.list);
+			      
+			    },function(error){
+			      alert(error)
+			    })
+
+			}
+		})
+
+		
+
+	    /*vm.list = [
 	    	{
       			Id : "Sorry1234123",
       			Title : "Sorry",
