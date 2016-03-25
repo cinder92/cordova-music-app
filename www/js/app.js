@@ -74,6 +74,16 @@
       }
     })
 
+    .state('app.playlistsongs', {
+      url: '/songs/:pid',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/playlist-songs.html',
+          controller: 'playlistSongCtrl as plsongs'
+        }
+      }
+    })
+
     /*.state('app.nowplaying', {
       url: '/nowplaying/:id/:position/:play',
       views: {

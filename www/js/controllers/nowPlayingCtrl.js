@@ -24,44 +24,37 @@
 
 		vm.isFavorite = false
 		$rootScope.isShuffle = false
-
-
-		/*favoriteSongs.getFavoritSongs().then(function(greeting) {
-		  alert('Success: ' + greeting);
-		}, function(reason) {
-		  alert('Failed: ' + reason);
-		}, function(update) {
-		  alert('Got notification: ' + update);
-		})
-		//
-
-		//ocultar el reproductor mini
-		/*$scope.$on( "$ionicView.beforeEnter", function( scopes, states ) {
-	        $rootScope.hideMiniControls = true
-	    });
-
-	    $scope.$on("$ionicView.leave",function(scopes,states){
-	    	$rootScope.hideMiniControls = false
-	    })*/
+		$rootScope.isFromPlaylist = false
 
 		//@$stateParams.id identificador de cancion
 		//@$stateParams.position posición del arreglo
 
-		vm.getCurrentSong = function(id,position){
+		vm.getCurrentSong = function(id,position,plsid){
 			//si el id y la posición no están vacíos
 			$rootScope.hideMiniControls = false
 			vm.durationensecs = 0
 			if(undefined != id && undefined != position){
 
-				$localForage.getItem('songList').then(function(songs) {
+				//verificar que la canción provenga de una playlist
+				var db = 'songList'
+				if($rootScope.isFromPlaylist){
+					db = 'playlist'
+				}
+				$localForage.getItem(db).then(function(songs) {
 					//se parseo el Id porque sino, no encuentra la canción,
 					//por el tipo de dato
 					//limpiar el intervalo de tiempo
-					//console.log(songs)
 					clearInterval(duration)
 					clearIntervals()
-					vm.song = _.find(songs, { 'Id': id });
-					//console.log('escribe!!! => '+id+' > '+position)
+					if($rootScope.isFromPlaylist){
+						//buscar las canciones de la playlist
+						var plsSongs = _.find(songs,{ 'id' : plsid })
+						//buscar la canción en cuestión
+						vm.song = _.find(plsSongs.songs, { 'Id': id });
+					}else{
+						vm.song = _.find(songs, { 'Id': id });
+					}	
+					
 					vm.durationensecs = parseInt(vm.song.Duration) / 1000           
 		        	vm.totalDuration = secs2time(parseInt(vm.song.Duration)/1000);
 		        	vm.song.Duration = secs2time(parseInt(vm.song.Duration)/1000);
@@ -247,56 +240,128 @@
 		vm.stopSong = function(){
 			$rootScope.media.stop()
 		}
-		$rootScope.nextSong = function(position){
+		$rootScope.nextSong = function(position,plsid){
 			position = (undefined != position) ? position : 0;
 			
+			var db = 'songList'
+			if($rootScope.isFromPlaylist){
+				db = 'playlist'
+			}
 			//si está activado el shuffle
 			if(!$rootScope.isShuffle){
-				$localForage.getItem('songList').then(function(songs) {
+				$localForage.getItem(db).then(function(songs) {
+
+					//buscar la posición de playlists
+					if($rootScope.isFromPlaylist){
+						var pls = _.find(songs,{ 'id' : plsid }),
+						//buscar la canción en cuestión
+						songs = pls.songs
+					}
+
 					var posicion = songs[position+1]
+
 					//posicion devuelve un objeto de cancion
 					var Id = (undefined != posicion) ? posicion.Id : songs[0].Id ;
 					if(undefined != posicion){
-					   vm.getCurrentSong(Id,parseInt(position)+1)	
+					   if($rootScope.isFromPlaylist){
+					   		vm.getCurrentSong(Id,parseInt(position)+1,plsid)
+					   }else{
+					   		vm.getCurrentSong(Id,parseInt(position)+1)
+					   }	
 					}else{
 						//mostrar la primera canción de la lista
-					    vm.getCurrentSong(Id,0)
+					    if($rootScope.isFromPlaylist){
+					   		vm.getCurrentSong(Id,0,plsid)
+					   }else{
+					   		vm.getCurrentSong(Id,0)
+					   }
 					}
 				});
 			}else{
-				$localForage.getItem('songList').then(function(songs){
+				$localForage.getItem(db).then(function(songs){
+
+					//buscar la posición de playlists
+					if($rootScope.isFromPlaylist){
+						var pls = _.find(songs,{ 'id' : plsid }),
+						//buscar la canción en cuestión
+						songs = pls.songs
+					}
+
 		    		var length = songs.length,
 		    		newposition = _.random(length),
 		    		playthis = songs[newposition]
+
+		    		//buscar la posición de playlists
+					if($rootScope.isFromPlaylist){
+						vm.getCurrentSong(playthis.Id,newposition,plsid)
+					}else{
+						vm.getCurrentSong(playthis.Id,newposition)
+					}
 		    		
-		    		vm.getCurrentSong(playthis.Id,newposition)
 		    	})
 			}
 		}
+
 		$rootScope.prevSong = function(position){
-			//con la posición del arreglo, buscar en el arreglo de canciones
-			//su Id para reproducirla
+			position = (undefined != position) ? position : 0;
+			
+			var db = 'songList'
+			if($rootScope.isFromPlaylist){
+				db = 'playlist'
+			}
+			//si está activado el shuffle
 			if(!$rootScope.isShuffle){
-				position = (undefined != position) ? position : 0;
-				$localForage.getItem('songList').then(function(songs) {
-					var posicion = songs[parseInt(position)-1]
+				$localForage.getItem(db).then(function(songs) {
+
+					//buscar la posición de playlists
+					if($rootScope.isFromPlaylist){
+						var pls = _.find(songs,{ 'id' : plsid }),
+						//buscar la canción en cuestión
+						songs = pls.songs
+					}
+
+					var posicion = songs[position-1]
+
+					//posicion devuelve un objeto de cancion
 					var Id = (undefined != posicion) ? posicion.Id : songs[0].Id ;
-					if(undefined != posicion){  
-					   vm.getCurrentSong(Id,parseInt(position)-1)	
+					if(undefined != posicion){
+					   if($rootScope.isFromPlaylist){
+					   		vm.getCurrentSong(Id,parseInt(position)-1,plsid)
+					   }else{
+					   		vm.getCurrentSong(Id,parseInt(position)-1)
+					   }	
 					}else{
 						//mostrar la primera canción de la lista
-					   vm.getCurrentSong(Id,0)
+					    if($rootScope.isFromPlaylist){
+					   		vm.getCurrentSong(Id,0,plsid)
+					   }else{
+					   		vm.getCurrentSong(Id,0)
+					   }
 					}
 				});
 			}else{
-				$localForage.getItem('songList').then(function(songs){
+				$localForage.getItem(db).then(function(songs){
+
+					//buscar la posición de playlists
+					if($rootScope.isFromPlaylist){
+						var pls = _.find(songs,{ 'id' : plsid }),
+						//buscar la canción en cuestión
+						songs = pls.songs
+					}
+
 		    		var length = songs.length,
 		    		newposition = _.random(length),
 		    		playthis = songs[newposition]
+
+		    		//buscar la posición de playlists
+					if($rootScope.isFromPlaylist){
+						vm.getCurrentSong(playthis.Id,newposition,plsid)
+					}else{
+						vm.getCurrentSong(playthis.Id,newposition)
+					}
 		    		
-		    		vm.getCurrentSong(playthis.Id,newposition)
 		    	})
-			}
+			}	
 		}
 
 		function secs2time(secs){
@@ -348,10 +413,10 @@
 	    	vm.getCurrentSong(args.id,args.position)
 	    });
 
-	    
-		//vm.getCurrentSong(currentSongId,currentSongPosition)
-	    
+	    $rootScope.$on('fromPlaylist',function(event,args){
+	    	$rootScope.isFromPlaylist = true
+	    	vm.getCurrentSong(args.id,args.position,args.plsid)
+	    })
 
-		//obtener la información de la canción en curso
 	}
 })();

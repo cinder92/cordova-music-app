@@ -1,8 +1,9 @@
 <ion-view view-title="Playlists">
-	<div class="bar bar-header">
-	  <div class="h1 title">Header Buttons</div>
-	  <button class="button button-clear button-positive icon ion-plus-round"></button>
-	</div>
   <ion-content>
+  	<ion-list>
+  		<ion-item ng-repeat="pls in playlist.playlists" ui-sref="app.playlistsongs({ 'pid' : pls.id })">
+  			{{pls.name}}
+  		</ion-item>
+  	</ion-list>
   </ion-content>
 </ion-view>

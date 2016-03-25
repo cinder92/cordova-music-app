@@ -10,15 +10,25 @@
 	function playlistCtrl($scope,$rootScope,$localForage) {
 		//content
 		var vm = this
+		vm.playlists = ''
 		$scope.$on("$ionicView.beforeEnter",function(){
 			//mostrar el boton de añadir nueva
 			$rootScope.isPlaylist = true
+			vm.getPlaylists()
 		})
 
 		$scope.$on("$ionicView.beforeLeave",function(){
 			//mostrar el boton de añadir nueva
 			$rootScope.isPlaylist = false
 		})
+
+		vm.getPlaylists = function(){
+			$localForage.getItem('playlist').then(function(pls){
+				if(undefined != pls && null != pls && pls.length > 0){
+					vm.playlists = pls
+				}
+			})
+		}
 
 		$rootScope.addnewPlayList = function(){
 			//añadir nueva playlist
@@ -59,8 +69,24 @@
 			}
 		}
 
+		vm.playNow = function(plsdid,id,position){
+			if(plsid > 0){
+				//buscar la playlist, y reproducir todas las canciones en ella, en cola
+				var args = {
+					plsid : plsdid,
+					id : id,
+					position : position
+				}
+				$rootScope.$emit('fromPlaylist', args);
+			}else{
+				//return false
+			}
+		}
+
 		vm.addToPlayList = function(plsid,song){
 			//do something
 		}
+
+
 	}
 })();
