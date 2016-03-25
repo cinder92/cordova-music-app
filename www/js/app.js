@@ -3,8 +3,19 @@
 
   angular.module('music-player', ['ionic','ngCordova','LocalForageModule'])
 
-  .run(function($ionicPlatform) {
+  .run(function($ionicPlatform,$rootScope) {
+    $rootScope.hideMiniControls = false
     $ionicPlatform.ready(function() {
+
+      // then override any default you want
+        /*window.plugins.nativepagetransitions.globalOptions.duration = 500;
+        window.plugins.nativepagetransitions.globalOptions.iosdelay = 350;
+        window.plugins.nativepagetransitions.globalOptions.androiddelay = 350;
+        window.plugins.nativepagetransitions.globalOptions.winphonedelay = 350;
+        window.plugins.nativepagetransitions.globalOptions.slowdownfactor = 4;
+        // these are used for slide left/right only currently
+        window.plugins.nativepagetransitions.globalOptions.fixedPixelsTop = 0;
+        window.plugins.nativepagetransitions.globalOptions.fixedPixelsBottom = 0;*/
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
       if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -48,6 +59,16 @@
         'menuContent': {
           templateUrl: 'templates/songList.html',
           controller: 'songListCtrl as songList'
+        }
+      }
+    })
+
+    .state('app.favourites', {
+      url: '/favourites',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/favourites.html',
+          controller: 'favouritesCtrl as favourite'
         }
       }
     })

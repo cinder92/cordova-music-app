@@ -40,7 +40,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6e5ab2', end
 }
 
 //icons
-.ion-navicon,.back-button,.ion-android-arrow-back,.ion-android-search{
+.ion-navicon,.back-button,.ion-android-arrow-back,.ion-android-search,.ion-android-funnel{
 	color:#fff !important;
 }
 
@@ -540,6 +540,22 @@ to {
     		font-size: 55px;
 	    }
 	}
+
+	#other-controls{
+		div{
+			text-align: center;
+			font-size: 30px;
+
+			i{
+				&.active{
+					color:#FE7ED5;
+					text-shadow: 1px 0px 13px #B12086;
+					-webkit-text-shadow: 1px 0px 13px #B12086;
+				}
+				color:#ffffff;
+			}
+		}
+	}
 }
 
 //controles en todas las vistas
@@ -674,7 +690,7 @@ body.menu-open .side-menu-open{
   transform-origin: center center;
 }
 body.menu-open ion-side-menus, body.menu-open ion-side-menu{
-  background: #11c1f3
+  background: #6e5ab2;
 }
 ion-side-menu.menu-left-axis ion-item.item a.item-content, ion-side-menu.menu-left-axis ion-item.item{
   background-color: transparent !important;

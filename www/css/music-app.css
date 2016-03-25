@@ -9749,7 +9749,7 @@ a.button {
   .bar-header .title {
     color: #ffffff !important; }
 
-.ion-navicon, .back-button, .ion-android-arrow-back, .ion-android-search {
+.ion-navicon, .back-button, .ion-android-arrow-back, .ion-android-search, .ion-android-funnel {
   color: #fff !important; }
 
 .item {
@@ -10191,6 +10191,16 @@ a.button {
     padding: 3px 0 0 0px;
     font-size: 55px; }
 
+.nowPlayingSong #other-controls div {
+  text-align: center;
+  font-size: 30px; }
+  .nowPlayingSong #other-controls div i {
+    color: #ffffff; }
+    .nowPlayingSong #other-controls div i.active {
+      color: #FE7ED5;
+      text-shadow: 1px 0px 13px #B12086;
+      -webkit-text-shadow: 1px 0px 13px #B12086; }
+
 .music-controls {
   position: fixed;
   bottom: 0;
@@ -10306,7 +10316,7 @@ body.menu-open .side-menu-open {
   transform-origin: center center; }
 
 body.menu-open ion-side-menus, body.menu-open ion-side-menu {
-  background: #11c1f3; }
+  background: #6e5ab2; }
 
 ion-side-menu.menu-left-axis ion-item.item a.item-content, ion-side-menu.menu-left-axis ion-item.item {
   background-color: transparent !important;

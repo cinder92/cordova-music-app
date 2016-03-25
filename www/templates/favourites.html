@@ -1,0 +1,16 @@
+<ion-view view-title="Favourites">
+  <ion-content>
+   	<div class="list" ng-show="showSearch">
+	  <div class="item item-input-inset">
+	    <label class="item-input-wrapper">
+	      <input type="text" placeholder="Search Songs" ng-model="favourite.searchSong">
+	    </label>
+	  </div>
+	</div>
+    <ion-list>
+		<ion-item class="songFile" ng-repeat="song in favourite.list | filter : favourite.searchSong" ng-click="showPlayNow(song.Id,$index)">
+			<h2>{{song.Title}} | {{song.Album}}</h2>
+		</ion-item>
+	</ion-list>
+  </ion-content>
+</ion-view>

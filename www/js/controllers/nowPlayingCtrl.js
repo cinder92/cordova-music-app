@@ -5,9 +5,9 @@
 	  .module('music-player')
 	  .controller('nowPlayingCtrl', nowPlayingCtrl);
 
-	nowPlayingCtrl.$inject = ['$scope','$rootScope','$localForage','$stateParams','$cordovaMedia'];
+	nowPlayingCtrl.$inject = ['$scope','$rootScope','$localForage','$stateParams','$cordovaMedia','favoriteSongs'];
 
-	function nowPlayingCtrl($scope,$rootScope,$localForage,$stateParams,$cordovaMedia) {
+	function nowPlayingCtrl($scope,$rootScope,$localForage,$stateParams,$cordovaMedia,favoriteSongs) {
 		//content
 		var vm = this,
 		duration = 0,
@@ -21,6 +21,19 @@
 			m : 0,
 			s : 0
 		}
+
+		vm.isFavorite = false
+		$rootScope.isShuffle = false
+
+
+		/*favoriteSongs.getFavoritSongs().then(function(greeting) {
+		  alert('Success: ' + greeting);
+		}, function(reason) {
+		  alert('Failed: ' + reason);
+		}, function(update) {
+		  alert('Got notification: ' + update);
+		})
+		//
 
 		//ocultar el reproductor mini
 		/*$scope.$on( "$ionicView.beforeEnter", function( scopes, states ) {
@@ -36,6 +49,7 @@
 
 		vm.getCurrentSong = function(id,position){
 			//si el id y la posición no están vacíos
+			$rootScope.hideMiniControls = false
 			vm.durationensecs = 0
 			if(undefined != id && undefined != position){
 
@@ -43,15 +57,30 @@
 					//se parseo el Id porque sino, no encuentra la canción,
 					//por el tipo de dato
 					//limpiar el intervalo de tiempo
+					//console.log(songs)
 					clearInterval(duration)
 					clearIntervals()
-					vm.song = _.find(songs, { 'Id': parseInt(id) });
+					vm.song = _.find(songs, { 'Id': id });
+					//console.log('escribe!!! => '+id+' > '+position)
 					vm.durationensecs = parseInt(vm.song.Duration) / 1000           
 		        	vm.totalDuration = secs2time(parseInt(vm.song.Duration)/1000);
 		        	vm.song.Duration = secs2time(parseInt(vm.song.Duration)/1000);
 		        	$rootScope.songTitle = vm.song.Title
 		        	$rootScope.songAuthor = vm.song.Author
 		        	$rootScope.songCover = vm.song.Cover
+		        	$rootScope.songId = id
+		        	//console.log(id)
+
+		        	//verificar que sea favorita
+		        	favoriteSongs.isFavorite(id).then(function(is){
+		        		//console.log('la cancion es favorita? => '+is)
+		        		if(is == 'true'){
+			    			vm.isFavorite = true
+		        		}else{
+		        			vm.isFavorite = false
+		        		}
+		        	})
+
 		        	//widget
 			        MusicControls.destroy()
 
@@ -220,32 +249,42 @@
 		}
 		$rootScope.nextSong = function(position){
 			position = (undefined != position) ? position : 0;
-			$localForage.getItem('songList').then(function(songs) {
-				var posicion = songs[position+1]
-				//posicion devuelve un objeto de cancion
-				var Id = (undefined != posicion) ? posicion.Id : songs[0].Id ;
-				if(undefined != posicion){
-				   vm.getCurrentSong(Id,parseInt(position)+1)	
-				}else{
-					//mostrar la primera canción de la lista
-				    vm.getCurrentSong(Id,0)
-				}
-			});
+			
+			//si está activado el shuffle
+			if(!$rootScope.isShuffle){
+				$localForage.getItem('songList').then(function(songs) {
+					var posicion = songs[position+1]
+					//posicion devuelve un objeto de cancion
+					var Id = (undefined != posicion) ? posicion.Id : songs[0].Id ;
+					if(undefined != posicion){
+					   vm.getCurrentSong(Id,parseInt(position)+1)	
+					}else{
+						//mostrar la primera canción de la lista
+					    vm.getCurrentSong(Id,0)
+					}
+				});
+			}else{
+				$rootScope.shuffle()
+			}
 		}
 		$rootScope.prevSong = function(position){
 			//con la posición del arreglo, buscar en el arreglo de canciones
 			//su Id para reproducirla
-			position = (undefined != position) ? position : 0;
-			$localForage.getItem('songList').then(function(songs) {
-				var posicion = songs[parseInt(position)-1]
-				var Id = (undefined != posicion) ? posicion.Id : songs[0].Id ;
-				if(undefined != posicion){  
-				   vm.getCurrentSong(Id,parseInt(position)-1)	
-				}else{
-					//mostrar la primera canción de la lista
-				   vm.getCurrentSong(Id,0)
-				}
-			});
+			if(!$rootScope.isShuffle){
+				position = (undefined != position) ? position : 0;
+				$localForage.getItem('songList').then(function(songs) {
+					var posicion = songs[parseInt(position)-1]
+					var Id = (undefined != posicion) ? posicion.Id : songs[0].Id ;
+					if(undefined != posicion){  
+					   vm.getCurrentSong(Id,parseInt(position)-1)	
+					}else{
+						//mostrar la primera canción de la lista
+					   vm.getCurrentSong(Id,0)
+					}
+				});
+			}else{
+				$rootScope.shuffle()
+			}
 		}
 
 		function secs2time(secs){
@@ -263,6 +302,36 @@
 	            "s": seconds
 	        };
 	        return obj;
+	    }
+
+	    //other controls
+	    $rootScope.shuffle = function(){
+	    	//reproducir canciones aleatorias (sencillo)
+	    	//obtener la longitud de las canciones
+	    	$localForage.getItem('songList').then(function(songs){
+	    		var length = songs.length,
+	    		newposition = _.random(length),
+	    		playthis = songs[newposition]
+
+	    		$rootScope.isShuffle = true
+	    		vm.getCurrentSong(playthis.Id,newposition)
+	    	})
+	    }
+
+	    $rootScope.addtoFavorites = function(id){
+	    	//añadir a favoritos
+	    	favoriteSongs.isFavorite(id).then(function(is){
+        		//console.log('la cancion es favorita? => '+is,id)
+        		if(is == 'true'){
+        			//console.log('si es favorita')
+        			favoriteSongs.deleteSong(id)
+	    			vm.isFavorite = false
+        		}else{
+        			//console.log('no es favorita')
+        			favoriteSongs.addtoFavorite(id)
+	    			vm.isFavorite = true
+        		}
+        	})
 	    }
 
 	    $rootScope.$on('playSong', function(event, args) {

@@ -55,17 +55,17 @@
     
     <ion-content>
       <ion-list>
-        <ion-item menu-close ng-click="login()">
-          Login
+        <ion-item menu-close ui-sref="app.songlist" transitiontype="slide" direction="left" go-native>
+          All Songs
         </ion-item>
-        <ion-item menu-close href="#/app/search">
-          Search
+        <ion-item menu-close ui-sref="app.favourites" transitiontype="slide" direction="left" go-native>
+          Favourites
         </ion-item>
-        <ion-item menu-close href="#/app/browse">
-          Browse
-        </ion-item>
-        <ion-item menu-close href="#/app/playlists">
+        <ion-item menu-close ui-sref="app.playlists" transitiontype="slide" direction="left" go-native>
           Playlists
+        </ion-item>
+        <ion-item menu-close ui-sref="app.feedback" transitiontype="slide" direction="left" go-native>
+          Feedback
         </ion-item>
       </ion-list>
     </ion-content>
