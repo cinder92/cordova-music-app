@@ -104,7 +104,7 @@ to {
 	}
 }
 
-//single-case toda la música
+//single-case toda la musica
 .single-case{
 	position:relative;
 	display:block;
@@ -665,3 +665,19 @@ to {
 	padding-right: 0;
 }
 
+/*menu-3d*/
+body.menu-open .side-menu-open{
+  transform: translate3d(275px, 0px, 0px) scale(.9) !important;
+  opacity: 0.9;
+  -webkit-filter: blur(2px);
+  filter: blur(2px);
+  transform-origin: center center;
+}
+body.menu-open ion-side-menus, body.menu-open ion-side-menu{
+  background: #11c1f3
+}
+ion-side-menu.menu-left-axis ion-item.item a.item-content, ion-side-menu.menu-left-axis ion-item.item{
+  background-color: transparent !important;
+  border-color: transparent !important;
+  color:#fff
+}
