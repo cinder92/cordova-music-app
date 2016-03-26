@@ -19,8 +19,9 @@
 		}
 
 		$localForage.getItem('songList').then(function(songs){
-			if(songs.length > 0){
+			if(undefined != songs && null != songs && songs.length > 0){
 				vm.list = songs
+				
 			}else{
 
 				searchFiles.searchInDirectorys().then(function(songList){
@@ -43,7 +44,7 @@
 			      			Id : (songList[i].Title + songList[i].Duration).replace(/\W+/g, "").replace(/\s/g,""),
 			      			Title : songList[i].Title,
 			      			Duration : songList[i].Duration,
-			      			Cover : songList[i].Cover,
+			      			Cover : (songList[i].Cover != "") ? songList[i].Cover : "img/vinyl.png" ,
 			      			Author : songList[i].Author,
 			      			Genre : songList[i].Genre,
 			      			Path : songList[i].Path,
@@ -51,6 +52,7 @@
 			      		}
 
 			      		vm.list.push(song)
+
 			      	}
 
 			      	//console.log(vm.list)
@@ -63,8 +65,6 @@
 
 			}
 		})
-
-		
 
 	    /*vm.list = [
 	    	{

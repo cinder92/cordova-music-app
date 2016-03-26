@@ -1,7 +1,7 @@
 <ion-view view-title="Playlists">
   <ion-content>
   	<ion-list>
-  		<ion-item ng-repeat="pls in playlist.playlists" ui-sref="app.playlistsongs({ 'pid' : pls.id })" class="item-icon-right">
+  		<ion-item ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="pls in playlist.playlists" ui-sref="app.playlistsongs({ 'pid' : pls.id })" class="item-icon-right">
   			{{pls.name}}
   			<i class="icon ion-ios-arrow-right"></i>
   		</ion-item>

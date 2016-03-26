@@ -8,9 +8,9 @@
 	  </div>
 	</div>
     <ion-list>
-		<ion-item class="songFile item-icon-right" ng-repeat="song in favourite.list | filter : favourite.searchSong" ng-click="showPlayNow(song.Id,$index,false)">
-			<h2>{{song.Title}} | {{song.Author}}</h2>
-			<i class="icon ion-play"></i>
+		<ion-item ng-class-odd="'odd'" ng-class-even="'even'" class="item-icon-right" ng-repeat="song in favourite.list | filter : favourite.searchSong" ng-click="showPlayNow(song.Id,$index,false)">
+			{{song.Title}} | {{song.Author}}
+			<i class="icon ion-ios-musical-note"></i>
 		</ion-item>
 	</ion-list>
 	<div class="row" ng-show="favourite.list.length == 0">

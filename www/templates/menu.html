@@ -37,10 +37,28 @@
         </ion-item>
       </ion-list>-->
       <ion-scroll>
-          <div direction='y' ng-init="names=['home','wifi','settings','options','search','cloud','stopwatch','apps','map','locate','compass','create','call']" overflow-scroll='true'>
+          <!--<div direction='y' ng-init="names=['home','wifi','settings','options','search','cloud','stopwatch','apps','map','locate','compass','create','call']" overflow-scroll='true'>
             <ion-item class='slide_up' menu-close ng-repeat='x in names'>
               <i class='icon ion-android-{{x}}'></i>
               <span>{{x}}</span><span class="sub">This is a sub title</span>
+            </ion-item>
+          </div>-->
+          <div direction='y' overflow-scroll='true'>
+            <ion-item class='slide_up' menu-close ui-sref="app.songlist">
+              <i class='icon ion-ios-musical-notes'></i>
+              <span>Music</span><span class="sub">View all music</span>
+            </ion-item>
+          </div>
+          <div direction='y' overflow-scroll='true'>
+            <ion-item class='slide_up' menu-close ui-sref="app.favourites">
+              <i class='icon ion-heart'></i>
+              <span>Favorites</span><span class="sub">¡Only the best!</span>
+            </ion-item>
+          </div>
+          <div direction='y' overflow-scroll='true'>
+            <ion-item class='slide_up' menu-close ui-sref="app.playlists">
+              <i class='icon ion-android-radio-button-on'></i>
+              <span>Playlists</span><span class="sub">Take your time</span>
             </ion-item>
           </div>
         </ion-scroll>

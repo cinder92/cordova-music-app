@@ -7,18 +7,33 @@
 	    </label>
 	  </div>
 	</div>
-    <ion-list>
-		<ion-item class="songFile" ng-repeat="song in songList.list | filter : songList.searchSong" ng-click="showPlayNow(song.Id,$index)">
-			<div class="single-case">
-				<div class="overlay"></div>
-				<img class="cover" src="{{song.Cover}}"/>
-				<div class="vinyl">
-					<img src="img/vinyl.png" alt="">
-				</div>
-			</div>
-			<h2>{{song.Title}}</h2>
-			<p>{{song.Album}}</p>
-		</ion-item>
+    
+    <div ng-repeat="song in songList.list | filter : songList.searchSong">
+
+    <div class="row" ng-if="$even">
+      <div class="col col-50 songFile" 
+           ng-repeat="s in [songList.list[$index],songList.list[$index + 1]]"
+           ng-click="showPlayNow(s.Id,$index)">
+          <div class="single-case">
+            <div class="overlay"></div>
+            <div ng-show="s.Cover != 'img/vinyl.png'">
+              <img class="cover" src="{{s.Cover}}"/>
+            </div>
+            <div class="vinyl">
+              <img src="img/vinyl.png" alt="">
+            </div>
+          </div>
+          <h2>{{s.Title}}</h2>
+          <p>{{s.Album}}</p>
+      </div>
+    </div>
+
+    </div>
+
+    <!--<ion-list>
+		<ion-item class="songFile " >
+			
+		</ion-item>-->
 	</ion-list>
   </ion-content>
   <!-- reproductor en todas las vistas -->

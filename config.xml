@@ -15,8 +15,8 @@
   <preference name="android-minSdkVersion" value="16"/>
   <preference name="BackupWebStorage" value="none"/>
   <preference name="StatusBarOverlaysWebView" value="true" />
-  <preference name="StatusBarBackgroundColor" value="#4E407D" />
-  <preference name="NavigationBarColor" value="#4E407D"/>
+  <preference name="StatusBarBackgroundColor" value="#291e22" />
+  <preference name="NavigationBarColor" value="#291e22"/>
    <feature name="StatusBar">
       <param name="ios-package" value="CDVStatusBar" onload="true" />
   </feature>
