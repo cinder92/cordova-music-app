@@ -21,6 +21,61 @@
       }
                 //StatusBar.styleDefault();
 
+        //servicio de background https://github.com/phpsa/cbsp
+       $rootScope.inBackground = false
+       document.addEventListener('pause',function(){
+          $rootScope.inBackground = true
+
+          cordova.plugins.backgroundMode.configure({
+              title: 'Runing Vigets Player'
+          })
+
+          cordova.plugins.backgroundMode.enable();
+          //var bgservice = cordova.require('com.red_folder.phonegap.plugin.backgroundservice.BackgroundService');
+
+           // Called when background mode has been activated
+          cordova.plugins.backgroundMode.onactivate = function() {
+            // if track was playing resume it
+            setInterval(function () {
+                if($rootScope.songhasend){
+                   $rootScope.nextSong($rootScope.songPosition);
+                }
+                // Modify the currently displayed notification
+                /*cordova.plugins.backgroundMode.configure({
+                    text:'Running in background for more than 5s now.'
+                });*/
+            }, 1000);
+          }
+       },false)
+
+       document.addEventListener('resume',function(){
+          $rootScope.inBackground = false
+          cordova.plugins.backgroundMode.disable();
+       },false)
+
+      /*bgservice.getStatus(function(e){
+         if(e.Success){
+            //iniciamos el servicio
+            bgservice.startService(function(r) {
+                console.log('servicio started => '+r)
+            },function(e) {
+                console.log('servicio not started => '+JSON.stringify(e))
+            });
+
+            //cada 1s verificará si la canción se detuvo
+            bgservice.enableTimer(1000,function(r) {
+                console.log('timer started => '+r)
+            },function(e) {
+               console.log('timer not started => '+JSON.stringify(e))
+            });
+
+            bgservice.registerForUpdates(function(r) {
+                console.log('register for update! => '+r)
+            },function(e) {
+                 console.log('not register for update! => '+JSON.stringify(e))
+            });
+         }
+      })*/
     });
   })
 

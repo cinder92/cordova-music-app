@@ -29,6 +29,8 @@
 		$rootScope.isShuffle = false
 		$rootScope.isFromPlaylist = false
 
+		$rootScope.songhasend = false
+
 		//@$stateParams.id identificador de cancion
 		//@$stateParams.position posición del arreglo
 
@@ -88,6 +90,7 @@
 	 	}
 
 		vm.getCurrentSong = function(id,position,plsid){
+			$rootScope.songhasend = false
 			//si el id y la posición no están vacíos
 			$rootScope.hideMiniControls = false
 			vm.durationensecs = 0
@@ -217,7 +220,12 @@
 									&& parseInt(sec) == (vm.totalDuration.s-2)
 								){
 									//console.log(hrs,mins,sec,vm.totalDuration.h,vm.totalDuration.m,vm.totalDuration.s-2)
-									$rootScope.nextSong($rootScope.songPosition);
+									if($rootScope.inBackground){
+										$rootScope.songhasend = true
+									}else{
+										$rootScope.nextSong($rootScope.songPosition);
+									}
+									
 
 								}
 							},

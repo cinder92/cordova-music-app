@@ -31,6 +31,10 @@
     {
       "locator": "https://github.com/homerours/cordova-music-controls-plugin",
       "id": "cordova-plugin-music-controls"
+    },
+    {
+      "locator": "https://github.com/katzer/cordova-plugin-background-mode.git",
+      "id": "cordova-plugin-background-mode"
     }
   ],
   "cordovaPlatforms": [
