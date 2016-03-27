@@ -18,54 +18,57 @@
 			$rootScope.showSearch = true
 		}
 
-		$localForage.getItem('songList').then(function(songs){
-			if(undefined != songs && null != songs && songs.length > 0){
-				vm.list = songs
-				
-			}else{
+		$rootScope.loadSongs = function(){
+			$localForage.getItem('songList').then(function(songs){
+				if(undefined != songs && null != songs && songs.length > 0){
+					vm.list = songs
+					
+				}else{
 
-				searchFiles.searchInDirectorys().then(function(songList){
-			      	
+					searchFiles.searchInDirectorys().then(function(songList){
+				      	
 
-			      	//obtener la lista
+				      	//obtener la lista
 
-			      	for(var i = 0; i < songList.length; i++){
-			      		/*
-						items.put("Id", thisId);
-		                    items.put("Album", album);
-		                    items.put("Author", author);
-		                    items.put("Title", title);
-		                    items.put("Genre", genero);
-		                    items.put("Cover", encoded);
-		                    items.put("Duration", Duration);
-		                    items.put("Path", thisPath);
-			      		*/
-			      		var song = {
-			      			Id : (songList[i].Title + songList[i].Duration).replace(/\W+/g, "").replace(/\s/g,""),
-			      			Title : songList[i].Title,
-			      			Duration : songList[i].Duration,
-			      			Cover : (songList[i].Cover != "") ? songList[i].Cover : "img/vinyl.png" ,
-			      			Author : songList[i].Author,
-			      			Genre : songList[i].Genre,
-			      			Path : songList[i].Path,
-			      			Album : songList[i].Album
-			      		}
+				      	for(var i = 0; i < songList.length; i++){
+				      		/*
+							items.put("Id", thisId);
+			                    items.put("Album", album);
+			                    items.put("Author", author);
+			                    items.put("Title", title);
+			                    items.put("Genre", genero);
+			                    items.put("Cover", encoded);
+			                    items.put("Duration", Duration);
+			                    items.put("Path", thisPath);
+				      		*/
+				      		var song = {
+				      			Id : (songList[i].Title + songList[i].Duration).replace(/\W+/g, "").replace(/\s/g,""),
+				      			Title : songList[i].Title,
+				      			Duration : songList[i].Duration,
+				      			Cover : (songList[i].Cover != "") ? songList[i].Cover : "img/vinyl.png" ,
+				      			Author : songList[i].Author,
+				      			Genre : songList[i].Genre,
+				      			Path : songList[i].Path,
+				      			Album : songList[i].Album
+				      		}
 
-			      		vm.list.push(song)
+				      		vm.list.push(song)
 
-			      	}
+				      	}
 
-			      	//console.log(vm.list)
-			      	//guardar en la base de datos la información de las canciones
-			      	$localForage.setItem('songList',vm.list);
-			      
-			    },function(error){
-			      alert(error)
-			    })
+				      	//console.log(vm.list)
+				      	//guardar en la base de datos la información de las canciones
+				      	$localForage.setItem('songList',vm.list);
+				      
+				    },function(error){
+				      alert(error)
+				    })
 
-			}
-		})
+				}
+			})
+		}
 
+		$rootScope.loadSongs()
 	    /*vm.list = [
 	    	{
       			Id : "Sorry1234123",
@@ -146,6 +149,8 @@
 	    vm.closePlayNow = function(){
 	    	viewModal.hide()
 	    }
+
+	    $rootScope.closeModal = vm.closePlayNow
 
 	    //disparar evento cuando se cierre el teclado
 	    window.addEventListener('native.keyboardhide', function(){

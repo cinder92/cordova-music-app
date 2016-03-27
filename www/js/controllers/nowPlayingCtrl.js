@@ -49,6 +49,13 @@
 	 		})
 	 	}
 
+	 	vm.closePopover = function(){
+	 		console.log('cerando1')
+	 		$scope.popover.hide()
+	 	}
+
+	 	$rootScope.closePopOver = vm.closePopover
+
 	 	vm.addToPlaylist = function(pid,sid){
 	 		if(undefined != pid && undefined != sid){
 	 			//buscar la cancion en songList
@@ -90,6 +97,60 @@
 	 	}
 
 		vm.getCurrentSong = function(id,position,plsid){
+
+			//colores
+			setTimeout(function(){
+
+
+			var img = document.querySelector('#vibimg'),
+			vibrant = new Vibrant(img),
+            swatches = vibrant.swatches(),
+            vibrantColor = swatches['Vibrant'],
+             
+            // ['Vibrant', 'Mutted', ...]
+            // swatches;
+         
+            // Regresa el color en RGB
+            rgb = vibrantColor.getRgb(),
+         
+            // Regresa el color en hexadecimal                   
+            hex = vibrantColor.getHex(),
+         
+            // Regresa el color en HSL
+            hsl = vibrantColor.getHsl(),
+         
+            // Regresa la cantidad de veces que el color aparece en la imagen procesada
+            population = vibrantColor.getPopulation(),            
+         
+            // Regresa el color recomendado para títulos sobre este color
+            titleColor = vibrantColor.getTitleTextColor(), 
+         
+            // Regresa el color recomendado para párrafos sobre este color
+            bodyColor = vibrantColor.getBodyTextColor();
+
+            //window.plugins.tintstatusbar.setColor(hex)
+
+            //cambiar los colores de los controles dependiendo de vagrant
+            var components = document.getElementsByClassName('control'),
+            buttons = document.getElementsByClassName('action-box')
+
+            for(var i = 0; i < components.length; i++){
+			    components[i].style.color = hex //color
+			    components[i].style['text-shadow'] = '1px 0px 13px '+hex //shadow
+			}
+
+			for(var i = 0; i < buttons.length; i++){
+			    buttons[i].style.border = hex //color
+			    buttons[i].style['box-shadow'] = '1px 0px 13px '+hex //shadow
+			}
+
+            //console.log(rgb,hex,hsl,population,titleColor,bodyColor);
+
+            //setear colores recomendados 
+            document.getElementById('song-artist').style.color = titleColor
+            document.getElementById('song-duration').style.color = titleColor
+            document.getElementById('song-title').style.color = titleColor
+            },250)
 			$rootScope.songhasend = false
 			//si el id y la posición no están vacíos
 			$rootScope.hideMiniControls = false

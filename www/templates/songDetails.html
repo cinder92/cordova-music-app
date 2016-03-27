@@ -1,0 +1,41 @@
+<ion-view title="{{song.songDetails.Title}} Details">
+	<ion-content>
+		<div class="list">
+		  <label class="item item-input item-stacked-label odd">
+		    <span class="input-label">Title</span>
+		    <input type="text" placeholder="Title" ng-model="song.songDetails.Title">
+		  </label>
+		  <label class="item item-input item-stacked-label">
+		    <span class="input-label">Album</span>
+		    <input type="text" placeholder="Album" ng-model="song.songDetails.Album">
+		  </label>
+		  <label class="item item-input item-stacked-label odd">
+		    <span class="input-label">Genre</span>
+		    <input type="text" placeholder="Genre" ng-model="song.songDetails.Genre">
+		  </label>
+		  <label class="item item-input item-stacked-label">
+		    <span class="input-label">Author</span>
+		    <input type="text" placeholder="Author" ng-model="song.songDetails.Author">
+		  </label>
+		  <label class="item item-input item-stacked-label odd">
+		    <span class="input-label">Cover</span>
+		    <input type="text" placeholder="Cover" ng-model="song.songDetails.Cover">
+		  </label>
+		  
+		</div>
+		<div class="row">
+			<div class="col-50">
+				<button ng-click="song.saveDetails()" class="button button-full button-assertive">
+				  Save details
+			  </button>
+			</div>
+			<div class="col-50">
+				<button ng-click="song.getInfoFromLastFM()" class="button button-full button-assertive">
+				  Get from internet
+			  </button>
+			</div>
+		</div>
+
+
+	</ion-content>
+</ion-view>

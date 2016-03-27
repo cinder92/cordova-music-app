@@ -139,6 +139,16 @@
       }
     })
 
+    .state('app.songdetails', {
+      url: '/song/:id',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/songDetails.html',
+          controller: 'songDetailsCtrl as song'
+        }
+      }
+    })
+
     /*.state('app.nowplaying', {
       url: '/nowplaying/:id/:position/:play',
       views: {

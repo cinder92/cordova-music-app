@@ -1038,7 +1038,6 @@ button.active,button.t_active{
 
 @mixin create-vinyl($color) {
   /**Size**/
-  width: 50%;
   //height: 120px;
   
   /**Animation**/
@@ -1088,9 +1087,10 @@ button.active,button.t_active{
 }
 
 .margen{
-	margin:4em auto 4em auto;
+	margin:5em auto;
 	.vinyl-spining{
-		width: 50%;
+		width: 180px;
+		height: 180px;
 	    margin: 0 auto;
 	    text-align: center;
 	    display: block;
@@ -1107,4 +1107,64 @@ button.active,button.t_active{
 
 .has-header {
     top: 24px !important;
+}
+
+.bluryimg{
+	background-size: cover !important;
+    background-position: center center !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /*-webkit-filter: blur(20px);
+    -moz-filter: blur(20px);
+    filter: blur(20px);*/
+    z-index: -1;
+    background-repeat: no-repeat !important;
+	&:before{
+		content:"";
+		background: rgba(0,0,0,0.6);
+	    width: 100%;
+	    height: 100%;
+	    position: absolute;
+	    top: 0;
+    	left: 0;
+	}
+}
+
+.top-bar{
+	//now playing
+	z-index: 9;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    background: rgba(0,0,0,0.2);
+
+    h1{
+    	color: #ffffff;
+	    font-size: 17px;
+	    text-align: left;
+	    padding: 5px;
+	    float: left;
+	    margin: 11px auto;
+    	width: 70%;
+    }
+
+    .button{
+    	padding:5px 10px 5px 10px;
+    	float: left;
+    	width: 15%;
+    }
+}
+
+.input-label{
+	color: #fff;
+    font-size: 20px;
+}
+
+.item-input input{
+	background: transparent !important;
+	color:#d36249;
+	font-size: 17px;
 }
