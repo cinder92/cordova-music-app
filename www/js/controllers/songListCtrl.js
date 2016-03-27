@@ -41,18 +41,21 @@
 			                    items.put("Duration", Duration);
 			                    items.put("Path", thisPath);
 				      		*/
-				      		var song = {
-				      			Id : (songList[i].Title + songList[i].Duration).replace(/\W+/g, "").replace(/\s/g,""),
-				      			Title : songList[i].Title,
-				      			Duration : songList[i].Duration,
-				      			Cover : (songList[i].Cover != "") ? songList[i].Cover : "img/vinyl.png" ,
-				      			Author : songList[i].Author,
-				      			Genre : songList[i].Genre,
-				      			Path : songList[i].Path,
-				      			Album : songList[i].Album
-				      		}
+				      		//no mostrar los "tonos" solo se muestran canciones mayores a 30s
+				      		if(songList[i].Duration > 30000){
+					      		var song = {
+					      			Id : (songList[i].Title + songList[i].Duration).replace(/\W+/g, "").replace(/\s/g,""),
+					      			Title : songList[i].Title,
+					      			Duration : songList[i].Duration,
+					      			Cover : (songList[i].Cover != "") ? songList[i].Cover : "img/vinyl.png" ,
+					      			Author : songList[i].Author,
+					      			Genre : songList[i].Genre,
+					      			Path : songList[i].Path,
+					      			Album : songList[i].Album
+					      		}
 
-				      		vm.list.push(song)
+					      		vm.list.push(song)
+				      		}
 
 				      	}
 

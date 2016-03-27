@@ -248,8 +248,13 @@
 						//vm.song.Duration => {h,i,s}
 						$rootScope.media.currentTime().then(
 							function(data){
-								//console.log('tiempo => '+data.status.value)
+								//console.log('tiempo => '+data)
+								if(undefined == data.status){
+									clearInterval(duration)
+									$rootScope.nextSong($rootScope.songPosition);
+								}
 								var tiempoActual = secs2time(parseInt(data.status.value))
+
 								var sec = 0;
 								var mins = 0;
 								var hrs = 0;
