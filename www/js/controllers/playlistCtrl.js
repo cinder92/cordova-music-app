@@ -33,7 +33,7 @@
 
 		$rootScope.addnewPlayList = function(){
 			//añadir nueva playlist
-			var plsname = prompt('Write new name','Create new playlist', ['Cancel,Perfect!'], 'New Playlist');
+			var plsname = prompt('Create new playlist','', ['Cancel,Perfect!'], 'New Playlist');
 			
 			if(plsname != ''){
 

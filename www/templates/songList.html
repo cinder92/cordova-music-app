@@ -8,11 +8,12 @@
 	  </div>
 	</div>
     
-    <div ng-repeat="song in songList.list | filter : songList.searchSong">
+    <div class="songItems" ng-repeat="song in songList.list | filter : songList.searchSong">
 
     <div class="row" ng-if="$even">
       <div class="col col-50 songFile" 
            ng-repeat="s in [songList.list[$index],songList.list[$index + 1]]"
+           ng-if="s != null"
            ng-click="showPlayNow(s.Id,$index)">
           <div class="single-case">
             <div class="overlay"></div>

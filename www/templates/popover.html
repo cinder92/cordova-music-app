@@ -7,22 +7,22 @@
 	  	</ion-item>
 	  	<ion-item ng-show="playing.submenu">
             <ion-list>
-			  	<ion-item ng-repeat="playlist in playing.playlists" ng-click="playing.addToPlaylist(playlist.id,songId)">
+			  	<ion-item ng-repeat="playlist in playing.playlists" ng-click="playing.submenu = false;closePopover();playing.addToPlaylist(playlist.id,songId)">
 			  		Add to {{playlist.name}}
 			  	</ion-item>
 	  		</ion-list>
         </ion-item>
 
-	  	<ion-item style="color:#000" ng-click="closePopOver();closeModal();" ui-sref="app.songdetails({'id' : songId})">
-	  		Edit Metadata
+	  	<ion-item ng-click="closePopOver();closeModal();" ui-sref="app.songdetails({'id' : songId})" class="item-icon-right">
+	  		<span style="color:#4d4d4d;top:0 !important">Edit Metadata</span>
 	  	</ion-item>
-	  	<ion-item>
+	  	<ion-item ng-click="shareVia('Twitter')">
 	  		Share via Twitter
 	  	</ion-item>
-	  	<ion-item>
+	  	<ion-item ng-click="shareVia('Whatsapp')">
 	  		Share via Whatsapp
 	  	</ion-item>
-	  	<ion-item>
+	  	<ion-item ng-click="shareVia('Facebook')">
 	  		Share via Facebook
 	  	</ion-item>
 	  </ion-list>

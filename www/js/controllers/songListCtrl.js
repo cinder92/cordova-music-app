@@ -5,12 +5,12 @@
 	  .module('music-player')
 	  .controller('songListCtrl', songListCtrl);
 
-	songListCtrl.$inject = ['$rootScope','$scope','$ionicModal','$cordovaFile','searchFiles','$localForage'];
+	songListCtrl.$inject = ['$q','$cordovaDialogs','$ionicLoading','$rootScope','$scope','$ionicModal','$cordovaFile','searchFiles','$localForage'];
 
-	function songListCtrl($rootScope,$scope,$ionicModal,$cordovaFile,searchFiles,$localForage) {
+	function songListCtrl($q,$cordovaDialogs,$ionicLoading,$rootScope,$scope,$ionicModal,$cordovaFile,searchFiles,$localForage) {
 		//content
 		var vm = this
-		vm.list = []
+		vm.list = ''
 		vm.songList = ''
 		vm.searchSong = ''
 
@@ -19,28 +19,24 @@
 		}
 
 		$rootScope.loadSongs = function(){
+
+			$ionicLoading.show({
+		      template: '<ion-spinner></ion-spinner><p>Please wait ...</p>'
+		    });
+
 			$localForage.getItem('songList').then(function(songs){
 				if(undefined != songs && null != songs && songs.length > 0){
 					vm.list = songs
-					
+					$ionicLoading.hide()
 				}else{
-
-					searchFiles.searchInDirectorys().then(function(songList){
+					vm.list = []
+					/*searchFiles.searchInDirectorys().then(function(songList){
 				      	
 
 				      	//obtener la lista
 
 				      	for(var i = 0; i < songList.length; i++){
-				      		/*
-							items.put("Id", thisId);
-			                    items.put("Album", album);
-			                    items.put("Author", author);
-			                    items.put("Title", title);
-			                    items.put("Genre", genero);
-			                    items.put("Cover", encoded);
-			                    items.put("Duration", Duration);
-			                    items.put("Path", thisPath);
-				      		*/
+				      		
 				      		//no mostrar los "tonos" solo se muestran canciones mayores a 30s
 				      		if(songList[i].Duration > 30000){
 					      		var song = {
@@ -48,6 +44,7 @@
 					      			Title : songList[i].Title,
 					      			Duration : songList[i].Duration,
 					      			Cover : (songList[i].Cover != "") ? songList[i].Cover : "img/vinyl.png" ,
+					      			Blur : (songList[i].Blur != "") ? songList[i].Blur : "img/vinyl.png" ,
 					      			Author : songList[i].Author,
 					      			Genre : songList[i].Genre,
 					      			Path : songList[i].Path,
@@ -62,9 +59,18 @@
 				      	//console.log(vm.list)
 				      	//guardar en la base de datos la información de las canciones
 				      	$localForage.setItem('songList',vm.list);
+
+				      	$ionicLoading.hide()
 				      
 				    },function(error){
 				      alert(error)
+				    })*/
+				    getAllSongsfromDevice().then(function(allsongs){
+				    	vm.list = allsongs
+
+				    	$localForage.setItem('songList',vm.list);
+
+				      	$ionicLoading.hide()
 				    })
 
 				}
@@ -72,6 +78,85 @@
 		}
 
 		$rootScope.loadSongs()
+
+
+		//deseas actualizar la lista de canciones automáticamente?
+		$rootScope.refreshSongs = function(){
+			$ionicLoading.show({
+		      template: '<ion-spinner></ion-spinner><p>Please wait ...</p>'
+		    });
+			$localForage.getItem('songList').then(function(songs){
+				if(undefined != songs && null != songs && songs.length > 0){
+					//vm.list = songs
+					
+					getAllSongsfromDevice().then(function(all){
+						if(songs.length < all.length){
+							var local = songs.length,
+							device = all.length,
+							resta = (device - local) + 1
+
+							for(var i = 1; i < resta; i++){
+								//newSongs.push(all[all.length-i]);
+								songs.push(all[all.length-i])
+							}
+							
+							//console.log(songs)
+							$localForage.setItem('songList',songs);
+							vm.list = songs
+
+						}
+					})
+				}else{
+
+		      	//console.log(vm.list)
+		      		getAllSongsfromDevice().then(function(songs){
+		      			vm.list = songs
+		      			$localForage.setItem('songList',vm.list);
+		      		});
+		      	
+		      	}
+		      	$ionicLoading.hide()
+				
+			})
+
+			//console.log(vm.list)
+		}
+
+		function getAllSongsfromDevice(){
+			var files = []
+			var deferred = $q.defer();
+			searchFiles.searchInDirectorys().then(function(songList){
+
+		      	for(var i = 0; i < songList.length; i++){
+		      		
+		      		//no mostrar los "tonos" solo se muestran canciones mayores a 30s
+		      		if(songList[i].Duration > 30000){
+			      		var song = {
+			      			Id : (songList[i].Title + songList[i].Duration).replace(/\W+/g, "").replace(/\s/g,""),
+			      			Title : songList[i].Title,
+			      			Duration : songList[i].Duration,
+			      			Cover : (songList[i].Cover != "") ? songList[i].Cover : "img/vinyl.png" ,
+			      			Blur : (songList[i].Blur != "") ? songList[i].Blur : "img/vinyl.png" ,
+			      			Author : songList[i].Author,
+			      			Genre : songList[i].Genre,
+			      			Path : songList[i].Path,
+			      			Album : songList[i].Album
+			      		}
+
+			      		files.push(song)
+		      		}
+
+		      	}
+
+		      	deferred.resolve(files)
+		    },function(error){
+		    	deferred.reject(error)
+		    })
+
+		    return deferred.promise
+
+		}
+
 	    /*vm.list = [
 	    	{
       			Id : "Sorry1234123",
@@ -112,6 +197,15 @@
       			Genre : "",
       			Path : "/sdtpa",
       			Album : "Sorry"
+      		},{
+      			Id : "Gay2352",
+      			Title : "Gay2",
+      			Duration : 1234522,
+      			Cover : "/sdpath/",
+      			Author : "Justin Bieber",
+      			Genre : "",
+      			Path : "/sdtpa",
+      			Album : "Sorry"
       		}
 	    ]
 
@@ -132,6 +226,7 @@
 
 	    	if(undefined == showModal){
 	    		viewModal.show()
+
 	    	}else{
 	    		if(showModal == false){
 	    			vm.closePlayNow()

@@ -1,23 +1,28 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version='1.0' encoding='utf-8'?>
 <widget id="com.ionicframework.musicapp964204" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>music-app</name>
-  <description>
+    <name>music-app</name>
+    <description>
         An Ionic Framework and Cordova project.
     </description>
-  <author email="you@example.com" href="http://example.com.com/">
+    <author email="you@example.com" href="http://example.com.com/">
       Your Name Here
     </author>
-  <content src="index.html"/>
-  <access origin="*"/>
-  <preference name="webviewbounce" value="false"/>
-  <preference name="UIWebViewBounce" value="false"/>
-  <preference name="DisallowOverscroll" value="true"/>
-  <preference name="android-minSdkVersion" value="21"/>
-  <preference name="BackupWebStorage" value="none"/>
-  <preference name="StatusBarOverlaysWebView" value="true" />
-  <preference name="StatusBarBackgroundColor" value="#291e22" />
-  <preference name="NavigationBarColor" value="#291e22"/>
-   <feature name="StatusBar">
-      <param name="ios-package" value="CDVStatusBar" onload="true" />
-  </feature>
+    <content src="index.html" />
+    <access origin="*" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="AndroidLaunchMode" value="singleTop"/>
+    <preference name="android-minSdkVersion" value="14" />
+    <preference name="BackupWebStorage" value="none" />
+    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarBackgroundColor" value="#291e22" />
+    <preference name="NavigationBarColor" value="#291e22" />
+    <feature name="StatusBar">
+        <param name="ios-package" onload="true" value="CDVStatusBar" />
+    </feature>
+    <preference name="xwalkVersion" value="17+" />
+    <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
+    <preference name="xwalkMode" value="embedded" />
+    <preference name="xwalkMultipleApk" value="true" />
 </widget>

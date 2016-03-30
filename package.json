@@ -35,6 +35,10 @@
     {
       "locator": "https://github.com/katzer/cordova-plugin-background-mode.git",
       "id": "cordova-plugin-background-mode"
+    },
+    {
+      "locator": "https://github.com/fastrde/phonegap-downloader.git",
+      "id": "cordova-plugin-fastrde-downloader"
     }
   ],
   "cordovaPlatforms": [

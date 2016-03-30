@@ -121,6 +121,12 @@ to {
 	}
 }
 
+.songItems{
+	&:last-child{
+		padding-bottom: 5em;
+	}
+}
+
 //single-case toda la musica
 .single-case{
 	position:relative;
@@ -200,12 +206,12 @@ to {
 		}
 	}
 
-	&:hover .vinyl {
+	/*&:hover .vinyl {
 		animation: spin 600ms infinite ease-in-out;
 		-moz-animation: spin 600ms infinite ease-in-out;
 		-webkit-animation: spin 600ms infinite ease-in-out;
 		left:98px;
-	}
+	}*/
 
 	.slotwrapper {
 		position:absolute;
@@ -376,12 +382,12 @@ to {
 		}
 	}
 
-	&:hover .vinyl {
+	/*&:hover .vinyl {
 		animation: spin 600ms ease-in-out;
 		-moz-animation: spin 600ms ease-in-out;
 		-webkit-animation: spin 600ms ease-in-out;
 		left:98px;
-	}
+	}*/
 
 	.slotwrapper {
 		position:absolute;
@@ -1094,6 +1100,9 @@ button.active,button.t_active{
 	    margin: 0 auto;
 	    text-align: center;
 	    display: block;
+	     -webkit-transition: all 600ms ease-in-out;
+    	-moz-transition: all 600ms ease-in-out;
+    	transition: all 600ms ease-in-out;
 		@include create-vinyl('#333');
 	}
 }
@@ -1122,6 +1131,9 @@ button.active,button.t_active{
     filter: blur(20px);*/
     z-index: -1;
     background-repeat: no-repeat !important;
+    -webkit-transition: all 600ms ease-in-out;
+    -moz-transition: all 600ms ease-in-out;
+    transition: all 600ms ease-in-out;
 	&:before{
 		content:"";
 		background: rgba(0,0,0,0.6);
@@ -1157,6 +1169,8 @@ button.active,button.t_active{
     	width: 15%;
     }
 }
+
+
 
 .input-label{
 	color: #fff;

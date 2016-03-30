@@ -17,9 +17,8 @@
 		    <span class="input-label">Author</span>
 		    <input type="text" placeholder="Author" ng-model="song.songDetails.Author">
 		  </label>
-		  <label class="item item-input item-stacked-label odd">
-		    <span class="input-label">Cover</span>
-		    <input type="text" placeholder="Cover" ng-model="song.songDetails.Cover">
+		  <label ng-show="song.songDetails.Cover != undefined || song.songDetails.Cover != null || song.songDetails.Cover != ''" class="item item-input item-stacked-label odd" style="text-align: center">
+		    <img ng-src="{{song.songDetails.Cover}}" alt="" style="width:174px">
 		  </label>
 		  
 		</div>
@@ -34,6 +33,12 @@
 				  Get from internet
 			  </button>
 			</div>
+		</div>
+
+		<div class="row">
+			<button ng-click="song.reverChanges()" class="button button-full button-assertive">
+				 Revert changes
+			  </button>
 		</div>
 
 

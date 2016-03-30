@@ -5,9 +5,9 @@
 	  .module('music-player')
 	  .controller('nowPlayingCtrl', nowPlayingCtrl);
 
-	nowPlayingCtrl.$inject = ['$ionicPopover','$scope','$rootScope','$localForage','$stateParams','$cordovaMedia','favoriteSongs'];
+	nowPlayingCtrl.$inject = ['$ionicLoading','$cordovaSocialSharing','$ionicPopover','$scope','$rootScope','$localForage','$stateParams','$cordovaMedia','favoriteSongs'];
 
-	function nowPlayingCtrl($ionicPopover,$scope,$rootScope,$localForage,$stateParams,$cordovaMedia,favoriteSongs) {
+	function nowPlayingCtrl($ionicLoading,$cordovaSocialSharing,$ionicPopover,$scope,$rootScope,$localForage,$stateParams,$cordovaMedia,favoriteSongs) {
 		//content
 		var vm = this,
 		duration = 0,
@@ -50,8 +50,61 @@
 	 	}
 
 	 	vm.closePopover = function(){
-	 		console.log('cerando1')
 	 		$scope.popover.hide()
+	 	}
+
+	 	$rootScope.shareVia = function(platform){
+	 		$ionicLoading.show({
+		      template: '<ion-spinner></ion-spinner><p>Please wait ...</p>'
+		    });
+	 		$rootScope.closePopOver()
+
+	 		//imagen o url
+	 		if($rootScope.songCover.indexOf('http') == -1){
+	 			$rootScope.songCover = 'file://'+$rootScope.songCover
+	 		}
+
+	 		switch(platform){
+	 			case 'Facebook':
+	 				
+ 				$cordovaSocialSharing
+			    .shareViaFacebook('I\'m listening '+$rootScope.songTitle+' | '+$rootScope.songAuthor, $rootScope.songCover, '')
+			    .then(function(result) {
+			      // Success!
+			      $ionicLoading.hide();
+			    }, function(err) {
+			    	$ionicLoading.hide();
+			      // An error occurred. Show a message to the user
+			    });
+
+	 			break;
+	 			case 'Twitter':
+
+	 			$cordovaSocialSharing
+			    .shareViaTwitter('I\'m listening '+$rootScope.songTitle+' | '+$rootScope.songAuthor, $rootScope.songCover, '')
+			    .then(function(result) {
+			      // Success!
+			      $ionicLoading.hide();
+			    }, function(err) {
+			    	$ionicLoading.hide();
+			      // An error occurred. Show a message to the user
+			    });
+
+	 			break;
+	 			case 'Whatsapp':
+
+	 			$cordovaSocialSharing
+			    .shareViaWhatsApp('I\'m listening '+$rootScope.songTitle+' | '+$rootScope.songAuthor, $rootScope.songCover, '')
+			    .then(function(result) {
+			      // Success!
+			      $ionicLoading.hide();
+			    }, function(err) {
+			    	$ionicLoading.hide();
+			      // An error occurred. Show a message to the user
+			    });
+
+	 			break;
+	 		}
 	 	}
 
 	 	$rootScope.closePopOver = vm.closePopover
