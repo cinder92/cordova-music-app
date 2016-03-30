@@ -71,13 +71,17 @@
 				    	$localForage.setItem('songList',vm.list);
 
 				      	$ionicLoading.hide()
+
 				    })
 
 				}
 			})
+
+			$rootScope.refreshSongs() // verificar si hay alguna nueva
 		}
 
-		$rootScope.loadSongs()
+		$rootScope.loadSongs() //cargar las canciones
+		
 
 
 		//deseas actualizar la lista de canciones automáticamente?
