@@ -18,6 +18,48 @@
 			$rootScope.showSearch = true
 		}
 
+		//deseas actualizar la lista de canciones automáticamente?
+		$rootScope.refreshSongs = function(){
+			$ionicLoading.show({
+		      template: '<ion-spinner></ion-spinner><p>Please wait ...</p>'
+		    });
+			$localForage.getItem('songList').then(function(songs){
+				if(undefined != songs && null != songs && songs.length > 0){
+					//vm.list = songs
+					
+					getAllSongsfromDevice().then(function(all){
+						if(songs.length < all.length){
+							var local = songs.length,
+							device = all.length,
+							resta = (device - local) + 1
+
+							for(var i = 1; i < resta; i++){
+								//newSongs.push(all[all.length-i]);
+								songs.push(all[all.length-i])
+							}
+							
+							//console.log(songs)
+							$localForage.setItem('songList',songs);
+							vm.list = songs
+
+						}
+					})
+				}else{
+
+		      	//console.log(vm.list)
+		      		getAllSongsfromDevice().then(function(songs){
+		      			vm.list = songs
+		      			$localForage.setItem('songList',vm.list);
+		      		});
+		      	
+		      	}
+		      	$ionicLoading.hide()
+				
+			})
+
+			//console.log(vm.list)
+		}
+
 		$rootScope.loadSongs = function(){
 
 			$ionicLoading.show({
@@ -82,49 +124,6 @@
 
 		$rootScope.loadSongs() //cargar las canciones
 		
-
-
-		//deseas actualizar la lista de canciones automáticamente?
-		$rootScope.refreshSongs = function(){
-			$ionicLoading.show({
-		      template: '<ion-spinner></ion-spinner><p>Please wait ...</p>'
-		    });
-			$localForage.getItem('songList').then(function(songs){
-				if(undefined != songs && null != songs && songs.length > 0){
-					//vm.list = songs
-					
-					getAllSongsfromDevice().then(function(all){
-						if(songs.length < all.length){
-							var local = songs.length,
-							device = all.length,
-							resta = (device - local) + 1
-
-							for(var i = 1; i < resta; i++){
-								//newSongs.push(all[all.length-i]);
-								songs.push(all[all.length-i])
-							}
-							
-							//console.log(songs)
-							$localForage.setItem('songList',songs);
-							vm.list = songs
-
-						}
-					})
-				}else{
-
-		      	//console.log(vm.list)
-		      		getAllSongsfromDevice().then(function(songs){
-		      			vm.list = songs
-		      			$localForage.setItem('songList',vm.list);
-		      		});
-		      	
-		      	}
-		      	$ionicLoading.hide()
-				
-			})
-
-			//console.log(vm.list)
-		}
 
 		function getAllSongsfromDevice(){
 			var files = []
