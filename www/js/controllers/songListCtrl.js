@@ -69,6 +69,11 @@
 			$localForage.getItem('songList').then(function(songs){
 				if(undefined != songs && null != songs && songs.length > 0){
 					vm.list = songs
+					vm.list.sort(function(a,b){
+					      var textA = a.Title.toUpperCase();
+					      var textB = b.Title.toUpperCase();
+					      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+					})
 					$ionicLoading.hide()
 				}else{
 					vm.list = []
@@ -109,7 +114,11 @@
 				    })*/
 				    getAllSongsfromDevice().then(function(allsongs){
 				    	vm.list = allsongs
-
+				    	vm.list.sort(function(a,b){
+						      var textA = a.Title.toUpperCase();
+						      var textB = b.Title.toUpperCase();
+						      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+						})
 				    	$localForage.setItem('songList',vm.list);
 
 				      	$ionicLoading.hide()
@@ -118,8 +127,7 @@
 
 				}
 			})
-
-			$rootScope.refreshSongs() // verificar si hay alguna nueva
+			//$rootScope.refreshSongs() // verificar si hay alguna nueva
 		}
 
 		$rootScope.loadSongs() //cargar las canciones
@@ -165,7 +173,7 @@
       			Id : "Sorry1234123",
       			Title : "Sorry",
       			Duration : 12345,
-      			Cover : "/sdpath/",
+      			Cover : "http://www.covershut.com/covers/Mago-De-Oz-La-Ciudad-De-Los-Arboles-Front-Cover-38317.jpg",
       			Author : "Justin Bieber",
       			Genre : "",
       			Path : "/sdtpa",
@@ -175,7 +183,7 @@
       			Id : "Puto1235",
       			Title : "Puto",
       			Duration : 12345,
-      			Cover : "/sdpath/",
+      			Cover : "http://www.covershut.com/covers/Mago-De-Oz-La-Ciudad-De-Los-Arboles-Front-Cover-38317.jpg",
       			Author : "Justin Bieber",
       			Genre : "",
       			Path : "/sdtpa",
@@ -185,7 +193,7 @@
       			Id : "Pendejo123213",
       			Title : "Pendejo",
       			Duration : 12345,
-      			Cover : "/sdpath/",
+      			Cover : "http://www.covershut.com/covers/Mago-De-Oz-La-Ciudad-De-Los-Arboles-Front-Cover-38317.jpg",
       			Author : "Justin Bieber",
       			Genre : "",
       			Path : "/sdtpa",
@@ -195,7 +203,7 @@
       			Id : "Gay235",
       			Title : "Gay",
       			Duration : 12345,
-      			Cover : "/sdpath/",
+      			Cover : "http://www.covershut.com/covers/Mago-De-Oz-La-Ciudad-De-Los-Arboles-Front-Cover-38317.jpg",
       			Author : "Justin Bieber",
       			Genre : "",
       			Path : "/sdtpa",
@@ -204,7 +212,7 @@
       			Id : "Gay2352",
       			Title : "Gay2",
       			Duration : 1234522,
-      			Cover : "/sdpath/",
+      			Cover : "http://www.covershut.com/covers/Mago-De-Oz-La-Ciudad-De-Los-Arboles-Front-Cover-38317.jpg",
       			Author : "Justin Bieber",
       			Genre : "",
       			Path : "/sdtpa",

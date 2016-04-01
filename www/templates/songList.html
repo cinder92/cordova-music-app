@@ -8,68 +8,13 @@
 	  </div>
 	</div>
     
-    <div class="songItems" ng-repeat="song in songList.list | filter : songList.searchSong">
-
-    <div class="row" ng-if="$even">
-      <div class="col col-50 songFile" 
-           ng-repeat="s in [songList.list[$index],songList.list[$index + 1]]"
-           ng-if="s != null"
-           ng-click="showPlayNow(s.Id,$index)">
-          <div class="single-case">
-            <div class="overlay"></div>
-            <div ng-show="s.Cover != 'img/vinyl.png'">
-              <img class="cover" src="{{s.Cover}}"/>
-            </div>
-            <div class="vinyl">
-              <img src="img/vinyl.png" alt="">
-            </div>
-          </div>
-          <h2>{{s.Title}}</h2>
-          <p>{{s.Album}}</p>
-      </div>
+    <div ng-show="style == 'brown'">
+      <div ng-include="'templates/lists/brown.html'"></div>
     </div>
 
+    <div ng-show="style == 'material'">
+      <div ng-include="'templates/lists/material.html'"></div>
     </div>
 
-    <!--<ion-list>
-		<ion-item class="songFile " >
-			
-		</ion-item>-->
-	</ion-list>
   </ion-content>
-  <!-- reproductor en todas las vistas -->
-    <div class="music-controls" ng-hide="hideMiniControls" ng-show="!hideMiniControls">
-      <div class="row no-left no-right">
-      <div class="col-20 coverButtons">
-        <div class="single-case">
-          <div class="overlay"></div>
-          <img class="cover" src="{{songCover}}"/>
-          <div class="vinyl">
-            <img src="img/vinyl.png" alt="">
-          </div>
-        </div>
-      </div>
-      <div class="col-60 scroll-left">
-        <p class="song-title">{{songTitle}}</p>
-        <h3 class="song-artist">{{songAuthor}}</h3>
-      </div>
-      <!--<div class="col-60 scroll-left">
-        <p class="song-title">Work (ft. Dreake ) - Rhianna - Work (ft. Dreake)</p>
-        <h3 class="song-artist">Work (ft. Dreake ) - Rhianna - Work (ft. Dreake)</h3>
-      </div>-->
-      <div class="col-20 coverButtons" ng-click="showPlayNow()">
-        <i class="icon ion-android-arrow-forward view-btn"></i>
-      </div>
-      <!--<div class="col text-center" ng-click="prevSong(songPosition)">
-        <i class="icon ion-ios-rewind-outline control"></i>
-      </div>
-      <div class="col text-center">
-        <i class="icon ion-ios-pause-outline control action-box pause" ng-show="isPlaying" ng-click="pauseSong()"></i>
-          <i class="icon ion-ios-play-outline control action-box"  ng-hide="isPlaying" ng-click="playSong()"></i>
-      </div>
-      <div class="col text-center" ng-click="nextSong(songPosition)">
-        <i class="icon ion-ios-fastforward-outline control"></i>
-      </div>-->
-    </div>
-    </div>
 </ion-view>

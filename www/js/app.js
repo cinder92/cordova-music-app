@@ -1,10 +1,54 @@
 (function(){
   'use strict'
-
   angular.module('music-player', ['ionic','ngCordova','LocalForageModule'])
 
-  .run(function($ionicPlatform,$rootScope,$cordovaStatusbar) {
+  .run(function($ionicPlatform,$rootScope,$cordovaStatusbar,$localForage) {
     $rootScope.hideMiniControls = false
+
+    //themes
+    var themes = [
+      { 
+        id : 'brown',
+        name : 'Brown',
+        active : 1
+      },
+      { 
+        id : 'material',
+        name : 'Material',
+        active : 0
+      },
+      { 
+        id : 'dark',
+        name : 'Dark',
+        active : 0
+      }
+    ]
+
+    $rootScope.style = 'brown'
+
+    $localForage.getItem('themes').then(function(t){
+      var current = _.find(t,{'active':1})
+      console.log(current)
+      if(undefined == current || null == current){
+        $rootScope.style = themes[0].id
+      }else{
+        $rootScope.style = current.id
+      }
+
+
+      switch($rootScope.style){
+        case 'material':
+          window.plugins.tintstatusbar.setColor('#004540')
+        break;
+        
+        default:
+        case 'brown':
+          window.plugins.tintstatusbar.setColor('#291e22')
+        break;
+      }
+
+    })
+
     $ionicPlatform.ready(function() {
 
       if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -17,9 +61,18 @@
       if (cordova.platformId == 'android') {
           //console.log('soy => '+cordova.platformId)
           //statusbarTransparent.enable()
-          window.plugins.tintstatusbar.setColor('#291e22')
+          switch($rootScope.style){
+            case 'material':
+              window.plugins.tintstatusbar.setColor('#004540')
+            break;
+            
+            default:
+            case 'brown':
+              window.plugins.tintstatusbar.setColor('#291e22')
+            break;
+          }
       }
-                //StatusBar.styleDefault();
+        
 
         //servicio de background https://github.com/phpsa/cbsp
        $rootScope.inBackground = false
@@ -81,6 +134,12 @@
 
   .config(function($stateProvider, $urlRouterProvider,$localForageProvider) {
     
+    //obtener el tema actual
+
+
+
+  
+
     //configurando la base de datos, almacenará la información de la música,
     //así como las listas de reproducción y demás configuraciones
     $localForageProvider.config({
@@ -149,6 +208,16 @@
       }
     })
 
+    .state('app.settings', {
+      url: '/settings',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/settings.html',
+          controller: 'settingsCtrl as settings'
+        }
+      }
+    })
+
     /*.state('app.nowplaying', {
       url: '/nowplaying/:id/:position/:play',
       views: {
@@ -189,6 +258,7 @@
     });*/
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/songlist');
+   
   });
 
 })();

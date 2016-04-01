@@ -1,0 +1,40 @@
+<ion-view view-title="Songs">
+  <ion-content>
+   	<ion-list ng-show="showSearch">
+	  <div class="item item-input-inset">
+	    <label class="item-input-wrapper">
+	      <input type="text" placeholder="Search Songs" ng-model="songList.searchSong">
+	    </label>
+	  </div>
+	</ion-list>
+
+    <ion-list>
+  		<ion-item ng-repeat="song in songList.list | filter : songList.searchSong" class="item-icon-right" ng-click="showPlayNow(song.Id,$index)" auto-list-divider auto-list-divider-value="{{song.Title}}">
+  			{{song.Title}}
+        <i class="icon ion-play"></i>
+  		</ion-item>
+  	</ion-list>
+  </ion-content>
+  <!-- reproductor en todas las vistas -->
+    <div class="music-controls" ng-hide="hideMiniControls" ng-show="!hideMiniControls">
+      <div class="row no-left no-right">
+      <div class="col-20 coverButtons">
+        <div class="single-case">
+          <div class="overlay"></div>
+          <img class="cover" src="{{songCover}}"/>
+          <div class="vinyl">
+            <img src="img/vinyl.png" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="col-60 scroll-left">
+        <p class="song-title">{{songTitle}}</p>
+        <h3 class="song-artist">{{songAuthor}}</h3>
+      </div>
+      <div class="col-20 coverButtons" ng-click="showPlayNow()">
+        <i class="icon ion-android-arrow-forward view-btn"></i>
+      </div>
+     
+    </div>
+    </div>
+</ion-view>
