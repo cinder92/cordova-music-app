@@ -11,7 +11,7 @@
     <ion-list>
   		<ion-item ng-repeat="song in songList.list | filter : songList.searchSong" class="item-icon-right" ng-click="showPlayNow(song.Id,$index)" auto-list-divider auto-list-divider-value="{{song.Title}}">
   			{{song.Title}}
-        <i class="icon ion-play"></i>
+        <i class="icon ion-music-note"></i>
   		</ion-item>
   	</ion-list>
   </ion-content>
