@@ -9,9 +9,9 @@
 	</ion-list>
 
     <ion-list>
-  		<ion-item ng-repeat="song in songList.list | filter : songList.searchSong" class="item-icon-right" ng-click="showPlayNow(song.Id,$index)" auto-list-divider auto-list-divider-value="{{song.Title}}">
+  		<ion-item angular-ripple ng-repeat="song in songList.list | filter : songList.searchSong" class="item-icon-right" ng-click="showPlayNow(song.Id,$index)" auto-list-divider auto-list-divider-value="{{song.Title}}">
   			{{song.Title}}
-        <i class="icon ion-music-note"></i>
+        <i class="icon ion-ios-musical-notes"></i>
   		</ion-item>
   	</ion-list>
   </ion-content>

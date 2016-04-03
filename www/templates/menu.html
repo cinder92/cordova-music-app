@@ -5,13 +5,13 @@
       </ion-nav-back-button>
 
       <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        <button angular-ripple class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-android-search" ng-click="globalSearch()" ng-hide="isPlaylist">
+        <button angular-ripple class="button button-icon button-clear ion-android-search" ng-click="globalSearch()" ng-hide="isPlaylist">
         </button>
-        <button class="button button-icon button-clear ion-plus-round" ng-click="addnewPlayList()" ng-show="isPlaylist">
+        <button angular-ripple class="button button-icon button-clear ion-plus-round" ng-click="addnewPlayList()" ng-show="isPlaylist">
         </button>
       </ion-nav-buttons>
     </ion-nav-bar>
@@ -44,30 +44,30 @@
             </ion-item>
           </div>-->
           <div direction='y' overflow-scroll='true'>
-            <ion-item class='slide_up' menu-close ui-sref="app.songlist">
+            <ion-item angular-ripple class='slide_up' menu-close ui-sref="app.songlist">
               <i class='icon ion-ios-musical-notes'></i>
               <span>Music</span><span class="sub">View all music</span>
             </ion-item>
           </div>
-          <div direction='y' overflow-scroll='true'>
+          <div angular-ripple direction='y' overflow-scroll='true'>
             <ion-item class='slide_up' menu-close ui-sref="app.favourites">
               <i class='icon ion-heart'></i>
               <span>Favorites</span><span class="sub">¡Only the best!</span>
             </ion-item>
           </div>
-          <div direction='y' overflow-scroll='true'>
+          <div angular-ripple direction='y' overflow-scroll='true'>
             <ion-item class='slide_up' menu-close ui-sref="app.playlists">
               <i class='icon ion-android-radio-button-on'></i>
               <span>Playlists</span><span class="sub">Take your time</span>
             </ion-item>
           </div>
-          <div direction='y' overflow-scroll='true'>
+          <div angular-ripple direction='y' overflow-scroll='true'>
             <ion-item class='slide_up' menu-close ui-sref="app.songlist" ng-click="refreshSongs()">
                 <i class='icon ion-android-radio-button-on'></i>
                 <span>Refresh!</span><span class="sub">New songs!</span>
             </ion-item>
           </div>
-          <div direction='y' overflow-scroll='true'>
+          <div angular-ripple direction='y' overflow-scroll='true'>
             <ion-item class='slide_up' menu-close ui-sref="app.settings">
                 <i class='icon ion-android-settings'></i>
                 <span>Settings</span><span class="sub">Configuration</span>

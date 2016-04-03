@@ -1,7 +1,7 @@
 <ion-view title="Songs">
 	<ion-content>
 		<ion-list>
-			<ion-item class="item-icon-right" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="song in plsongs.list" ng-click="plsongs.play(song.Id,$index)">
+			<ion-item angular-ripple class="item-icon-right" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="song in plsongs.list" ng-click="plsongs.play(song.Id,$index)">
 				{{song.Title}} | {{song.Author}}
 			<i class="icon ion-ios-musical-note"></i>
 			</ion-item>

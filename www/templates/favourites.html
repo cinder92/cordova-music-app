@@ -8,7 +8,7 @@
 	  </div>
 	</div>
     <ion-list>
-		<ion-item ng-class-odd="'odd'" ng-class-even="'even'" class="item-icon-right" ng-repeat="song in favourite.list | filter : favourite.searchSong" ng-click="showPlayNow(song.Id,$index,false)">
+		<ion-item angular-ripple ng-class-odd="'odd'" ng-class-even="'even'" class="item-icon-right" ng-repeat="song in favourite.list | filter : favourite.searchSong" ng-click="showPlayNow(song.Id,$index,false)">
 			{{song.Title}} | {{song.Author}}
 			<i class="icon ion-ios-musical-note"></i>
 		</ion-item>

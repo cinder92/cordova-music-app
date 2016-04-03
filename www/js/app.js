@@ -1,6 +1,6 @@
 (function(){
   'use strict'
-  angular.module('music-player', ['ionic','ngCordova','LocalForageModule'])
+  angular.module('music-player', ['ionic','ngCordova','LocalForageModule','angularRipple'])
 
   .run(function($ionicPlatform,$rootScope,$cordovaStatusbar,$localForage) {
     $rootScope.hideMiniControls = false

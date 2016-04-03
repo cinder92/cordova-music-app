@@ -16,10 +16,10 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col" ng-click="prevSong(songPosition)">
+			<div angular-ripple class="col" ng-click="prevSong(songPosition)">
 				<i class="icon ion-ios-rewind-outline control"></i>
 			</div>
-			<div class="col text-center">
+			<div angular-ripple class="col text-center">
 				<div class="outer">
 				 <svg width="65" height="65" xmlns="http://www.w3.org/2000/svg" class="nowPlayginSVG">
 				     <g>
@@ -30,16 +30,16 @@
 				<i class="icon ion-ios-pause-outline control action-box pause" ng-show="isPlaying" ng-click="pauseSong()"></i>
     			<i class="icon ion-ios-play-outline control action-box"  ng-hide="isPlaying" ng-click="playSong()"></i>
 			</div>
-			<div class="col" ng-click="nextSong(songPosition)">
+			<div angular-ripple class="col" ng-click="nextSong(songPosition)">
 				<i class="icon ion-ios-fastforward-outline control"></i>
 			</div>
 		</div>
 		<!-- other controls -->
 		<div class="row" id="other-controls">
-			<div class="col-50" ng-click="shuffle()">
+			<div angular-ripple class="col-50" ng-click="shuffle()">
 				<i class="icon" ng-class="{'active' : isShuffle, 'ion-ios-shuffle-strong' : isShuffle, 'ion-ios-shuffle' : !isShuffle}"></i>
 			</div>
-			<div class="col-50" ng-click="addtoFavorites(songId)">
+			<div angular-ripple class="col-50" ng-click="addtoFavorites(songId)">
 				<i class="icon" ng-class="{'active' : playing.isFavorite, 'ion-android-favorite' : playing.isFavorite, 'ion-android-favorite-outline' :  !playing.isFavorite}"></i>
 			</div>
 		</div>

@@ -1,12 +1,12 @@
 		
-		<div style="height: 74.6vh">
+		<div style="height: 100vh">
 			<img src='{{playing.song.Cover}}' style="display:none"/>
-			<div style="background-image:url({{playing.song.Cover}});height: 100%;background-size: cover;background-repeat: no-repeat;background-position: center">
+			<div style="background-image:url({{playing.song.Cover}});height: 80%;background-size: cover;background-repeat: no-repeat;background-position: center">
 					&nbsp;
 			</div>
 		</div>
 
-		<div>
+		<div style="position: absolute;bottom: 0;width: 100%;z-index: 9;">
 
 		<div class="row darkGreen">
 			<div class="col" ng-class="{'scroll-left' : playing.song.Author.length >= 25}">
@@ -21,20 +21,20 @@
 			<div id="timer"></div>
 		</div>
 		<div class="row ligthGreen">
-			<div class="col other-controls" ng-click="shuffle()">
+			<div angular-ripple class="col other-controls" ng-click="shuffle()">
 				<i class="icon ion-shuffle"></i>
 			</div>
-			<div class="col" ng-click="prevSong(songPosition)">
+			<div angular-ripple class="col" ng-click="prevSong(songPosition)">
 				<i class="icon ion-skip-backward controls"></i>
 			</div>
-			<div class="col text-center">
+			<div angular-ripple class="col text-center">
 				<i class="icon ion-pause controls pause" ng-show="isPlaying" ng-click="pauseSong()"></i>
     			<i class="icon ion-play controls"  ng-hide="isPlaying" ng-click="playSong()"></i>
 			</div>
-			<div class="col" ng-click="nextSong(songPosition)">
+			<div angular-ripple class="col" ng-click="nextSong(songPosition)">
 				<i class="icon ion-skip-forward controls"></i>
 			</div>
-			<div class="col other-controls" ng-click="addtoFavorites(songId)">
+			<div angular-ripple class="col other-controls" ng-click="addtoFavorites(songId)">
 				<i class="icon" ng-class="{'active' : playing.isFavorite, 'ion-android-favorite' : playing.isFavorite, 'ion-android-favorite-outline' :  !playing.isFavorite}"></i>
 			</div>
 		</div>
