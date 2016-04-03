@@ -94,16 +94,41 @@
 
 			  		if(response.data.resultCount == 1){
 			  			vm.songDetails.Title = response.data.results[0].trackName
-			  			vm.songDetails.Cover = response.data.results[0].artworkUrl100
-			  			vm.songDetails.Blur = response.data.results[0].artworkUrl100
+			  			vm.songDetails.Cover = response.data.results[0].artworkUrl100.replace('100x100', '500x500')
+			  			//vm.songDetails.Blur = response.data.results[0].artworkUrl100.replace('100x100', '500x500')
 			  			vm.songDetails.Album = response.data.results[0].collectionName
 			  			vm.songDetails.Genre = response.data.results[0].primaryGenreName
 			  			vm.songDetails.Author = response.data.results[0].artistName
+
+
+			  			if(vm.songDetails.Cover != ""){
+
+			  				document.addEventListener('DOWNLOADER_downloadSuccess', function(event){
+							  	var data = event.data;
+							  	var path = cordova.file.externalRootDirectory.replace('file://','')+data[0].name;
+								cordova.plugins.blurImage.blurImage(path,
+								function(blurPath){
+									vm.songDetails.Blur = blurPath;
+									vm.songDetails.Cover = path
+								},function(e){  alert('Oops! there was an errro! => '+e)  })
+							});
+							//blurear la imagen :D
+
+				  			//save files
+				  			downloader.init({folder: "/", fileSystem : cordova.file.externalRootDirectory});
+							downloader.get(vm.songDetails.Cover);
+							
+
+						}
+						$ionicLoading.hide()
+						//cambiar la ruta de los archivos
+						//vm.songDetails.Cover = cordova.file.externalRootDirectory+getFilename(vm.songDetails.Cover)
+			  			//vm.songDetails.Blur = cordova.file.externalRootDirectory+getFilename(vm.songDetails.Cover)
+
 			  		}else{
 			  			console.log(response)
 			  		}
 
-			  		$ionicLoading.hide()
 			  	}, function errorCallback(response) {
 			    	alert('Oops! there was an error, '+JSON.stringify(response))
 			    	$ionicLoading.hide()
@@ -149,7 +174,7 @@
 				//actualizar tambien las canciones favoritas y las de las playlist
 				$localForage.getItem('favoriteSongs').then(function(favoritos){
 					var current = _.find(favoritos,{'Id':vm.songDetails.Id})
-					console.log('de favoritos => '+JSON.stringify(current))
+					//console.log('de favoritos => '+JSON.stringify(current))
 
 					var nuevaFav = _.pull(favoritos,current)
 
@@ -162,7 +187,7 @@
 
 				$localForage.getItem('playlistSongs').then(function(playlists){
 					var current = _.find(playlists,{'Id':vm.songDetails.Id})
-					console.log('de palylist => '+JSON.stringify(current))
+					//console.log('de palylist => '+JSON.stringify(current))
 
 					var nuevaPlaylist = _.pull(playlists,current)
 
