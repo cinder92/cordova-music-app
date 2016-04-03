@@ -255,6 +255,13 @@ $darkGreen : #004540;
 	background: $green;
 	margin:0;
 	padding:0;
+
+	#timer{
+		height: 0.5em;
+		background: #FF9800;
+		width: 0%;
+    	border: 0;
+	}
 }
 
 .nowPlayingSong{

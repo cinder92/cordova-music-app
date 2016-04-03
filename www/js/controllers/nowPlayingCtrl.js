@@ -150,7 +150,7 @@
 	 	}
 
 		vm.getCurrentSong = function(id,position,plsid){
-
+			document.getElementById('timer').style.width = '0%'
 			//colores
 			setTimeout(function(){
 
@@ -237,7 +237,8 @@
 						//console.log('reprod normal => '+JSON.stringify(vm.song))
 					}	
 					
-					vm.durationensecs = parseInt(vm.song.Duration) / 1000           
+					vm.sonDuration = vm.song.Duration / 1000
+					vm.durationensecs = parseInt(vm.song.Duration) / 1000       
 		        	vm.totalDuration = secs2time(parseInt(vm.song.Duration)/1000);
 		        	vm.song.Duration = secs2time(parseInt(vm.song.Duration)/1000);
 		        	$rootScope.songTitle = vm.song.Title
@@ -306,8 +307,8 @@
 									clearInterval(duration)
 									$rootScope.nextSong($rootScope.songPosition);
 								}
-								var tiempoActual = secs2time(parseInt(data.status.value))
-
+								var tiempoActual = secs2time(Math.round(data.status.value))
+								//var maxDuration = data.status.value
 								var sec = 0;
 								var mins = 0;
 								var hrs = 0;
@@ -331,12 +332,18 @@
 								vm.song.Duration.h = hrs
 								vm.song.Duration.m = mins
 								vm.song.Duration.s = sec
-
+								//console.log(data.status.value,vm.sonDuration)
+								//material design
+								//var timer = parseInt(document.getElementById('timer').style.width)
+								var current = (data.status.value * 100) / vm.sonDuration
+                            	//mediaDiv =  self.$actualSongStatus ? self.$actualSongStatus : $('#SongStatus');
+                            	document.getElementById('timer').style.width = current+'%'
+                        		//mediaDiv.css("width",current+'%');
 								//verificar cuado acabe una canción y cambiar a la siguiente
 								
 								if(parseInt(hrs) == vm.totalDuration.h 
 									&& parseInt(mins) == vm.totalDuration.m 
-									&& parseInt(sec) == (vm.totalDuration.s-2)
+									&& parseInt(sec) == (vm.totalDuration.s)
 								){
 									//console.log(hrs,mins,sec,vm.totalDuration.h,vm.totalDuration.m,vm.totalDuration.s-2)
 									if($rootScope.inBackground){
