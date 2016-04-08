@@ -218,6 +218,16 @@
       }
     })
 
+    .state('app.search', {
+      url: '/search',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/searchSongs.html',
+          controller: 'searchSongs as search'
+        }
+      }
+    })
+
     /*.state('app.nowplaying', {
       url: '/nowplaying/:id/:position/:play',
       views: {

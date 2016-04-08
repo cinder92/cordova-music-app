@@ -1,0 +1,19 @@
+<ion-view title="Search Songs">
+	<ion-content>
+		<div class="list list-inset">
+		  <label class="item item-input">
+		    <input type="search" placeholder="Song Name" ng-model="search.query">
+		  </label>
+		</div>
+		<button class="button button-full button-assertive" ng-click="search.searchSong()">Search & Download</button>
+
+		<ion-list>
+			<ion-item  ng-repeat="song in search.list" ng-click="search.view(song.link)">
+				{{song.title}}
+				<ion-option-button ng-click="search.download(song.link,song.title)">Download</ion-option-button>
+			</ion-item>
+		</ion-list>
+
+		<p style="color:#fff;display: block;padding:10px;">It is highly recommended to be specific when you search . Eg . ' La Danza del fuego ' . After that, in many devices is mandatory move song, temporally to another folder and then move it again to 'Music' folder.</p>
+	</ion-content>
+</ion-view>
