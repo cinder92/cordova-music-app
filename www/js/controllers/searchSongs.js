@@ -36,7 +36,7 @@
 			var fileTransfer = new FileTransfer(),
 			fileName = name+'.mp3'
 			//guardar en la memoria local del teléfono en la carpeta Music
-			fileTransfer.download(link, cordova.file.externalRootDirectory + 'Music/' + fileName, 
+			fileTransfer.download(link, cordova.file.externalRootDirectory + fileName, 
 	        function(entry) {
 	        	$ionicLoading.hide()
 	        	$rootScope.refreshSongs()
