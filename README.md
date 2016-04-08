@@ -1,4 +1,4 @@
-# cordova-music-app
+# Vigets Player
 En esta ocasión comparto con ustedes un proyecto que desde hace mucho tiempo había tenido en mento y fue entre fracasos y limitantes de conocimiento de programación en general que no había podido concretarlo, sino hasta ahora.
 
 Vigets Player
