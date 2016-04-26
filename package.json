@@ -39,7 +39,17 @@
     {
       "locator": "https://github.com/fastrde/phonegap-downloader.git",
       "id": "cordova-plugin-fastrde-downloader"
-    }
+    },
+    "com.sudi.plugins.tintstatusbar",
+    "cordova-plugin-crosswalk-webview",
+    "cordova-plugin-dialogs",
+    "cordova-plugin-file-transfer",
+    "cordova-plugin-inappbrowser ",
+    "cordova-plugin-media",
+    "cordova-plugin-network-information",
+    "cordova-plugin-x-socialsharing",
+    "cordova-plugin-zip",
+    "net.ekuwang.cordova.plugin.statusbar"
   ],
   "cordovaPlatforms": [
     "ios",
